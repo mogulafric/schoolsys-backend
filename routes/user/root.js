@@ -1,27 +1,29 @@
 const express = require('express')
 const router = express.Router()
-const verifyJWT = require('../../middleware/verifyJWT');
+const userController = require('../../controller/user/userController')
+
 const ROLES_LIST = require('../../config/roles_list')
 const verifyRoles = require('../../middleware/verifyRoles')
-const loginController = require('../../controller/auth/users');
 
-// const ROLES_LIST = require('../../config/roles_list');
-// const verifyRoles = require('../../middleware/verifyRoles');
 
-router.route('/resetpassword')
-router.route('/selfaccountarchive')
+//self service
+router.route('/self/resetpassword')
+.patch(userController.selfPasswordReset)
+router.route('/self/archive')
+.patch(userController.selfArchive)
+router.route('/self/bioupdate')
+.patch(userController.selfBioUpdate)
+
 //user-system-account-admin routes
-router.route('/getallregisteredusers')
-    .get(verifyRoles(ROLES_LIST.Admin),loginController.getAllUsers)
-router.route('/getuserbiobyid/:id')
+router.route('/getusers')
+.get(verifyRoles(ROLES_LIST.Admin),userController.getAllUsers)
+router.route('/getuserbyid/:id')
+.get(verifyRoles(ROLES_LIST.Admin),userController.getAllUsers)
 router.route('/updateuserbio')
-router.route('/archiveuser')
+.patch(verifyRoles(ROLES_LIST.Admin),userController.getAllUsers)
+router.route('/archive')
+.patch(verifyRoles(ROLES_LIST.Admin),userController.getAllUsers)
 
-// user roles user system admin role
-router.route('getallroles')
-router.route('getallrolebyid')
-router.route('registernewrole')
-router.route('disablerole')
 
 
 module.exports = router;
