@@ -18,10 +18,7 @@ router.route('/archivestudent')
     .get(studentController.getStudentById)
 
 
-// promote students
 
-
-// demote students
 
 
 module.exports = router;

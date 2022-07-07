@@ -16,13 +16,13 @@ router.route('/self/bioupdate')
 
 //user-system-account-admin routes
 router.route('/getusers')
-.get(verifyRoles(ROLES_LIST.Admin),userController.getAllUsers)
-router.route('/getuserbyid/:id')
-.get(verifyRoles(ROLES_LIST.Admin),userController.getAllUsers)
+.get(userController.getAllUsers)
+router.route('/getuserbyid')
+.get(userController.getAllUser)
 router.route('/updateuserbio')
-.patch(verifyRoles(ROLES_LIST.Admin),userController.getAllUsers)
+.patch(userController.getAllUsers)
 router.route('/archive')
-.patch(verifyRoles(ROLES_LIST.Admin),userController.getAllUsers)
+.patch(userController.getAllUsers)
 
 
 

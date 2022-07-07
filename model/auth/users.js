@@ -26,7 +26,9 @@ const userSchema = new Schema({
     },
     count:{type:Number,
         requred:true},
-    refreshToken: [String]
+    isArchived:{type:Boolean,default:false},
+    isActive:{type:Boolean,default:true},
+    refreshToken: [String,{select:false}]
 });
 
 module.exports = mongoose.model('User', userSchema);
