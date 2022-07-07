@@ -6,7 +6,10 @@ const studentSchema = new Schema({
         type: String,
         required: [true, 'Student Full Name is reuired']
     },
-    admissionNumber:{type:Number},
+    admissionNumber:{
+    type:Number,
+    require:[true,'Admission number must be providented']
+    },
     kcpeMarks:{
         type:Number,
         required:[true, 'KCPE Marks is required']
@@ -37,7 +40,7 @@ const studentSchema = new Schema({
     },
     gender:{
         type:String,
-        enum:"Male" || "Female" || "Others"
+        enum:['Male','Female', 'Others']
     },
     image:[String],
     parentID:[
