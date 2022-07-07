@@ -40,6 +40,7 @@ app.use(verifyJWT);
 app.use('/api/v1/user', require('./routes/user/root.js'))
 //students routes 
 app.use('/api/v1/students', require('./routes/students/root'))
+app.use('/api/v1/subjects', require('./routes/subjects/root'))
 //teachers routes
 //app.use('/api/v1/teachers', require('./routes/teachers/root'))
 app.all('*',(req,res,next)=>{ 

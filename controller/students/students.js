@@ -32,7 +32,11 @@ const registerStudent = catchAsync(async (req, res, next) => {
     stream: stream,
   });
 
-  res.status(201).json(result);
+  res.status(201).json({
+    status:'success',
+    result:result.length,
+    data:result
+  })
 });
 const updateStudent = catchAsync(async (req, res, next) => {
   let {

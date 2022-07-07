@@ -44,7 +44,7 @@ const selfArchive = catchAsync(async (req, res, next) => {})
 
 const selfBioUpdate = catchAsync(async (req, res, next) => {
   let { email, userName } = req.body;
-  let getUserId = req.body.id;
+  let getUserId = req.body._id;
   const getUserIdQuery = { _id: getUserId };
   if (!getUserId){
     return res
@@ -78,11 +78,16 @@ const getAllUsers = catchAsync(async (req, res, next) => {
     result: users.length,
     data: users,
   })};
+  res.status(200).json({
+    status:'success',
+    result:users.length,
+    data:users
+  })
 });
 const getAllUser = catchAsync(async (req, res, next) => {
-  const userID = { _id: req.body.id };
-  console.log(req.body.id);
-  if (!req.body.id)
+  const userID = { _id: req.body._id };
+  console.log(req.body._id);
+  if (!req.body._id)
     return res
       .status(400)
       .json({ status: "failed", message: "user id does not exist" });
@@ -94,7 +99,7 @@ const getAllUser = catchAsync(async (req, res, next) => {
   });
 });
 const updateBio = catchAsync(async(req, res, next) =>{
-    let userID= req.body.id
+    let userID= req.body._id
     let {email, userName}= req.body
     if(!userID){
         return res
@@ -119,10 +124,8 @@ const updateBio = catchAsync(async(req, res, next) =>{
 
 const archive = catchAsync(async(req, res, next) => {});
 const passwordreset = catchAsync(async(req, res, next) => {
-    console.log(req.body.id);
-    const userID = { _id: req.body.id };
+    const userID = { _id: req.body._id };
     const checkEmailExist = await User.find(userID);
-  
     if (!checkEmailExist)
       return res
         .status(400)
@@ -139,7 +142,7 @@ const passwordreset = catchAsync(async(req, res, next) => {
     const hashedPwd = await bcrypt.hash(req.body.password, 10);
   
     const updatePassword = await User.updateOne(
-      { _id: req.body.id },
+      { _id: req.body._id },
       { password: hashedPwd, passwordConfirm: hashedPwd },
       { upsert: true }
     );
