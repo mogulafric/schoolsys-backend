@@ -18,7 +18,6 @@ const PORT = process.env.PORT || 3500;
 connectDB()
 // custom middleware logger
 app.use(logger);
-
 // Handle options credentials check - before CORS!
 // and fetch cookies credentials requirement
 app.use(credentials);
@@ -41,6 +40,7 @@ app.use('/api/v1/user', require('./routes/user/root.js'))
 //students routes 
 app.use('/api/v1/students', require('./routes/students/root'))
 app.use('/api/v1/subjects', require('./routes/subjects/root'))
+app.use('/api/v1/units', require('./routes/units/root'))
 //teachers routes
 //app.use('/api/v1/teachers', require('./routes/teachers/root'))
 app.all('*',(req,res,next)=>{ 
