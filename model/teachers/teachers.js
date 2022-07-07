@@ -15,7 +15,9 @@ const teacherSchema = new Schema({
     teacherEmail:{type:String, required:[true, 'Email is required']},
     unitTeacher:[reference],
     createAt:{type:Date, Default:Date.now()},
-    lateUpdated:{type:Dae, Default:Date.now()}
+    lateUpdated:{type:Dae, Default:Date.now()},
+    isArchived:{type:Boolean,default:false},
+    isActive:{type:Boolean,default:true}
 
 });
 

@@ -19,11 +19,9 @@ router.route('/getusers')
 .get(userController.getAllUsers)
 router.route('/getuserbyid')
 .get(userController.getAllUser)
-router.route('/updateuserbio')
-.patch(userController.getAllUsers)
+router.route('/updatebio')
+.patch(userController.updateBio)
 router.route('/archive')
 .patch(userController.getAllUsers)
-
-
 
 module.exports = router;

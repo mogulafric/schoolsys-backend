@@ -46,7 +46,9 @@ const studentSchema = new Schema({
     ],
     stream:{type:String},
     createdAt:{type:Date, Default:Date.now()},
-    lastUpdated:{type:Date, Default:Date.now}
+    lastUpdated:{type:Date, Default:Date.now},
+    isArchived:{type:Boolean,default:false},
+    isActive:{type:Boolean,default:true}
 });
 
 

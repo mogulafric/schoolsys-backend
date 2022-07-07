@@ -10,6 +10,8 @@ const unitSchema = new Schema({
         type: String,
         required: true
     }, 
-    streams: [String]
+    streams: [String],
+    isArchived:{type:Boolean,default:false},
+    isActive:{type:Boolean,default:true}
 });
 module.exports = mongoose.model('Unit', unitSchema);

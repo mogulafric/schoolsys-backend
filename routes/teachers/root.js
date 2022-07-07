@@ -1,20 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const teacherController = require('../../controller/teachers/teachers.js');
-// const ROLES_LIST = require('../../config/roles_list');
-// const verifyRoles = require('../../middleware/verifyRoles');
+const teacherController = require('../../controller/teachers/teachers');
 
-//must have teachers-account-admin role
 router.route('/getallteachers')
     .get(teacherController.getAllTeachers)
-//must have teachers-account-admin role
-router.route('/registernewteacher')
-    .post(teacherController.registerNewTeachers)
-//must have teachers-account-admin role
-router.route('/updateteacherbio')
-    .patch(teacherController.registerNewTeachers)  
-//must have teachers-account-admin role
-router.route('/getteacherbyid/:id')
-    .get(teacherController.getTeachersById)
+router.route('/registerteacher')
+    .post(teacherController.registerTeacher) 
+router.route('/getteacher')
+    .get(teacherController.getTeacherById)
+router.route('/deactivate')
+    .patch(teacherController.deactivate)
+router.route('/archive')
+    .patch(teacherController.archive)
+router.route('/updateteacher')
+    .patch(teacherController.updateTecaher)
+
 module.exports = router;
 

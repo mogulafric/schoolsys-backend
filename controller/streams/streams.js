@@ -18,13 +18,10 @@ const registerStream = catchAsync(async(req,res,next)=>{
     
         const result = await Stream.create({
             streamName: req.body.streamName,
-            streamCode: req.body.streamCode,
-          
+            streamCode: req.body.streamCode, 
         });
 
         res.status(201).json(result);
-    
-
 })
 const getStreamById = catchAsync(async(req,res,next)=>{
     if(!req?.body?.id) return res.status(400).json({ 'message': 'stream ID required.' });
@@ -55,11 +52,16 @@ const updateById = catchAsync(async(req,res,next)=>{
 const archive = catchAsync(async(req,res,next)=>{
     
 })
-
+const deactivate = catchAsync(async(req,res,next)=>{
+    
+})
 module.exports = {
     getAllStreams,
     registerStream,
     getStreamById,
     updateById,
+    deactivate,
     archive
 }
+
+

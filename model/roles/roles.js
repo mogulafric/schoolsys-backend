@@ -9,6 +9,8 @@ const roleSchema = new Schema({
         type: Number,
         required: true
     },
+    isArchived:{type:Boolean,default:false},
+    isActive:{type:Boolean,default:true},
     description:{type:String}
 });
 module.exports = mongoose.model('Role', roleSchema);

@@ -13,7 +13,9 @@ const subjectSchema = new Schema({
     subjectShortForm: {
         type: String,
         required: true
-    }
+    },
+    isArchived:{type:Boolean,default:false},
+    isActive:{type:Boolean,default:true}
 });
 
 module.exports = mongoose.model('Subject', subjectSchema);

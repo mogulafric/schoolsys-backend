@@ -9,12 +9,11 @@ router.route('/registerstream')
 router.route('/getstudentbyid')
     .get(streamController.getStreamById)
 router.route('/updateStream')
-    .patch(streamController.getStreamById)
-router.route('/archivestudent')
+    .patch(streamController.deactivate)
+router.route('/archive')
     .patch(streamController.archive)
-
-
-
+router.route('/deactivate')
+    .patch(streamController.archive)
 
 module.exports = router;
 

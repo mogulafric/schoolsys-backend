@@ -17,6 +17,8 @@ const parentSchema = new Schema({
     secondparentnumber: {
         type: Number 
     },
+    isArchived:{type:Boolean,default:false},
+    isActive:{type:Boolean,default:true},
    
     studentadmissionnumber:[reference]
 });

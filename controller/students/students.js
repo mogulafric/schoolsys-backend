@@ -1,6 +1,6 @@
 const Student = require('../../model/students/students.js');
 const catchAsync = require('../../utils/catchAsync.js');
-const getAllStudents = async (req, res, next) => {
+const getAllStudents = catchAsync(async (req, res, next) => {
     const students = await Student.find();
     if (!students) return res.status(204).json({ 'message': 'No Students found.' });
     res.status(200).json({
@@ -8,8 +8,8 @@ const getAllStudents = async (req, res, next) => {
         result:students.length,
         data:students
     });
-}
-const registerNewStudent = catchAsync(async(req, res, next)=>{
+})
+const registerStudent = catchAsync(async(req, res, next)=>{
     const {studentName,admissionNumber,kcpeMarks,kcpeRank,pidNumber,yearOfAdmission,currentYear, gender, unitAdmission, unitCurrent, stream ,id} = req.body
     if ( !studentName ||!admissionNumber ||!kcpeMarks ) {
         return res.status(400).json({ 'message': 'all fileds are required' });
@@ -35,7 +35,7 @@ const registerNewStudent = catchAsync(async(req, res, next)=>{
         res.status(201).json(result);
     
 })
-const updateStudentDetails = catchAsync(async(req, res, next)=>{   
+const updateStudent = catchAsync(async(req, res, next)=>{   
     const {studentName,admissionNumber,kcpeMarks,kcpeRank,pidNumber,yearOfAdmission,currentYear, gender, unitAdmission, unitCurrent, stream ,_id} = req.body
     if (!req?.body?._id) {
         return res.status(400).json({ 'message': 'ID parameter is required.' });
@@ -74,7 +74,10 @@ const updateStudentDetails = catchAsync(async(req, res, next)=>{
     });
     res.json(result);
 })
-const deleteDetails = catchAsync(async(req, res, next)=>{
+const  getStudentById = catchAsync(async(req, res,next)=>{
+    
+})
+const archiveStudent = catchAsync(async(req, res, next)=>{
     const {id} = req.body
     if (!req?.body?.id) return res.status(400).json({ 'message': 'Student ID required.' });
 
@@ -85,7 +88,7 @@ const deleteDetails = catchAsync(async(req, res, next)=>{
     const result = await Student.deleteOne(); //{ _id: req.body.id }
     res.status(200).json({status:'success',result:result.length,data:result});
 })
-const getStudentById = catchAsync(async(req, res, next)=>{
+const deactivateStudent = catchAsync(async(req, res, next)=>{
     if (!req?.params?.id) return res.status(400).json({ 'message': 'Student ID required.' });
 
     const student = await Student.findOne({ _id: req.params.id }).exec();
@@ -96,9 +99,11 @@ const getStudentById = catchAsync(async(req, res, next)=>{
 })
 module.exports = {
     getAllStudents,
-    registerNewStudent,
-    updateStudentDetails,
-    deleteDetails,
-    getStudentById
+    registerStudent,
+    updateStudent,
+    getStudentById,
+    archiveStudent,
+    deactivateStudent,
 }
+
 

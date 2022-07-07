@@ -17,7 +17,8 @@ const schoolSchema = new Schema({
     schoolCounty: {
         type: Number,
         required: true
-    }
+    } ,isArchived:{type:Boolean,default:false},
+    isActive:{type:Boolean,default:true}
 });
 
 module.exports = mongoose.model('School', schoolSchema);

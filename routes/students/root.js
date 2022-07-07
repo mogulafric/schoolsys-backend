@@ -7,18 +7,15 @@ const studentController = require('../../controller/students/students.js');
 router.route('/getallstudents')
     .get(studentController.getAllStudents)
 router.route('/registerstudent')
-    .post(studentController.registerNewStudent) 
-router.route('/getstudentbyid/:id')
+    .post(studentController.registerStudent) 
+router.route('/getstudentbyid')
     .get(studentController.getStudentById)
 router.route('/updatestudentbio')
-    .get(studentController.getStudentById)
+    .get(studentController.updateStudent)
 router.route('/archivestudent')
-    .get(studentController.getStudentById)
+    .get(studentController.archiveStudent)
 router.route('/archivestudent')
-    .get(studentController.getStudentById)
-
-
-
+    .get(studentController.deactivateStudent)
 
 
 module.exports = router;
