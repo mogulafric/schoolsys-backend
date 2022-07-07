@@ -561,3 +561,16 @@
 20220707	16:58:21	e5c3cc5c-037c-45c4-ab88-06fd22954031	PATCH	undefined	/api/v1/user/updatebio
 20220707	16:58:24	6500b58e-fe55-4d5e-ba29-a07a6a241abe	PATCH	undefined	/api/v1/user/updatebio
 20220707	16:58:31	1cfe59b3-e05b-4c9b-8055-c89537259601	GET	undefined	/api/v1/user/getuserbyid
+20220707	17:31:08	ce0eea55-e675-4038-b73e-b54174d2ee15	POST	undefined	/api/v1/auth/signup
+20220707	17:31:26	2181f0ed-7744-4316-899e-75f7de541a4e	POST	undefined	/api/v1/auth/login
+20220707	17:52:00	ce179d3b-474b-4050-88c9-756da24a36fa	PATCH	undefined	/api/v1/user/passwordreset
+20220707	17:52:16	1b8edd13-4985-47a9-97c0-7f27a5835769	PATCH	undefined	/api/v1/user/passwordreset
+20220707	17:55:00	620cf5c5-3acf-47d2-be31-f2b1160c16dd	PATCH	undefined	/api/v1/user/passwordreset
+20220707	17:55:16	8468a73d-19a4-42b3-ba3b-0ba6f8455a15	PATCH	undefined	/api/v1/user/self/resetpassword
+20220707	17:55:39	74c55698-8296-4d28-9842-68b5e71c3f34	PATCH	undefined	/api/v1/user/passwordreset
+20220707	17:55:44	e6c2c71e-2675-463d-8913-ff2d1739a7f2	PATCH	undefined	/api/v1/user/passwordreset
+20220707	17:55:46	ebc5155e-3816-48a9-aab2-c14fcd3c772d	PATCH	undefined	/api/v1/user/passwordreset
+20220707	17:55:50	0e6c91e1-a2ef-4168-83bf-8c63693d8841	PATCH	undefined	/api/v1/user/passwordreset
+20220707	17:56:05	5118d582-9801-4089-b4f9-db61b5f7cfff	PATCH	undefined	/api/v1/user/passwordreset
+20220707	17:56:11	aced668c-e4e1-412b-878d-69d49cb70c87	PATCH	undefined	/api/v1/user/passwordreset
+20220707	17:56:24	f92ebd0e-8a97-40bf-8814-5e2d1402ef8b	PATCH	undefined	/api/v1/user/passwordreset

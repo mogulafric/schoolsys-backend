@@ -6,6 +6,7 @@ const ROLES_LIST = require('../../config/roles_list')
 const verifyRoles = require('../../middleware/verifyRoles')
 
 
+
 //self service
 router.route('/self/resetpassword')
 .patch(userController.selfPasswordReset)
@@ -13,6 +14,7 @@ router.route('/self/archive')
 .patch(userController.selfArchive)
 router.route('/self/bioupdate')
 .patch(userController.selfBioUpdate)
+
 
 //user-system-account-admin routes
 router.route('/getusers')
@@ -22,6 +24,8 @@ router.route('/getuserbyid')
 router.route('/updatebio')
 .patch(userController.updateBio)
 router.route('/archive')
-.patch(userController.getAllUsers)
+.patch(userController.archive)
+router.route('/passwordreset')
+.patch(userController.passwordreset)
 
 module.exports = router;
