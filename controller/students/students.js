@@ -94,7 +94,7 @@ const updateStudent = catchAsync(async (req, res, next) => {
   res.status(200).json({status:'success',result:result.length, data:result});
 });
 const getStudentById = catchAsync(async (req, res, next) => {
-    let _id = req.body._id
+    let _id = req.params.id
     if(!_id) return res.status(400).json({status:'failed',message:'Error, user id not found'})
     const getStudent = await Student.findOne({_id:_id})
     if(!getStudent){return res.status(400).json({status:'failed', message:'Error, student not found'})}

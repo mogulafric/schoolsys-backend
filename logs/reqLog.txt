@@ -916,3 +916,14 @@
 20220708	06:28:40	ff8faa40-19c1-4c1e-a9bd-b55a349cbe60	PATCH	undefined	/api/v1/academicterm/updateterm
 20220708	06:28:49	4302cef1-e02a-489a-b7c3-4fc6734e3d00	PATCH	undefined	/api/v1/academicterm/updateterm
 20220708	06:28:52	31c95450-0c1f-4444-8da5-4366e75e42d1	PATCH	undefined	/api/v1/academicterm/updateterm
+20220708	13:22:02	51911feb-b433-45d9-92b9-b1ebed3b2f47	PATCH	undefined	/api/v1/academicterm/updateterm
+20220708	13:23:02	b5f81bed-b9d7-4b76-affa-c092b6cf709a	GET	undefined	/api/v1/students/getstudentbyid
+20220708	13:23:25	27aae062-59bc-4eaf-bf88-f36d6f8fed29	GET	undefined	/api/v1/students/getstudentbyid
+20220708	13:23:56	26a8f206-9039-4fea-a596-c3957e17365b	GET	undefined	/api/v1/students/getallstudents
+20220708	13:24:30	7e6244f7-56b2-4d30-978f-383f76a9a5a9	GET	undefined	/api/v1/students/getallstudents
+20220708	13:25:09	2a34d4a5-d40b-43fb-92e5-522e19f172a1	GET	undefined	/api/v1/students/getstudentbyid
+20220708	13:25:14	6240332d-def0-4600-a640-3cf6ae5dd501	GET	undefined	/api/v1/students/getstudentbyid
+20220708	13:25:26	b8a55372-f6b3-4f0b-b61b-3ccae1f71aa8	GET	undefined	/api/v1/students/getstudentbyid
+20220708	13:32:39	f044544e-9c80-40ef-b176-f036941e4589	GET	undefined	/api/v1/students/getstudentbyid
+20220708	15:58:11	1c5c232c-5d70-4e46-9163-cc27d1ea342a	GET	undefined	/api/v1/students/getstudentbyid
+20220708	15:58:28	fa32aca1-0dbb-4434-a4e1-e339b14fbbd2	GET	undefined	/api/v1/students/getstudentbyid/62c7fd0f81fbd627c77c5f69
