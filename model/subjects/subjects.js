@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const subjectSchema = new Schema({
     subjectCode: {
         type: String,
-        required: true
+        required: [true, "This field is required"]
     },
     subjectName: {
         type: String,
@@ -12,7 +12,7 @@ const subjectSchema = new Schema({
     },
     subjectShortForm: {
         type: String,
-        required: true
+        required: true,   
     },
     isArchived:{type:Boolean,default:false},
     isActive:{type:Boolean,default:true}

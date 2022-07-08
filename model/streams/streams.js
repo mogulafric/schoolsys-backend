@@ -10,7 +10,7 @@ const streamSchema = new Schema({
         type: Number,
         required: true
     },
-    unitID:[reference],
+    unitID:{type:String},
     isArchived:{type:Boolean,default:false},
     isActive:{type:Boolean,default:true}
   

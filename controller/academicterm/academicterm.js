@@ -1,11 +1,11 @@
-const AcademicTerm = require('../model/AcademicTerm');
+const AcademicTerm = require('../../model/academicterm/academicterm');
+const catchAsync = require('../../utils/catchAsync')
 
 
 const getAllTerm = catchAsync(async(req,res,next)=>{
     const AcademicTerms = await AcademicTerm.find();
     if (!AcademicTerms) return res.status(204).json({ 'message': 'No Subject found.' });
-    res.json(AcademicTerms);
-
+    res.status(200).json({status:'sucess',result:AcademicTerms.length,data:AcademicTerms});
 })
 const registerterm = catchAsync(async(req,res,next)=>{
     const {termName, termID } = req.body;
@@ -13,16 +13,12 @@ const registerterm = catchAsync(async(req,res,next)=>{
     if(termName==="undefined"  || termName===null || termName==="" ){    
         return res.status(404).json({'message':'Somefileds are  undefined'})
     }
-
-  
     if(!termName || !termID) {
         return res.status(400).json({ 'message': 'Some fields are empty!' });
     }
      // check for duplicate roles in the db
-
    const duplicate = await AcademicTerm.findOne({  termName: termName, termID:termID }).exec();
     if(duplicate) return res.status(409).json({'message':'Duplication of unique fields not allowed! {subjectCode,subjectName}'}); //Conflict 
-    
     try {
         const result = await AcademicTerm.create({
             termName:termName,
