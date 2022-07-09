@@ -44,6 +44,7 @@ app.use('/api/v1/units', require('./routes/units/root'))
 app.use('/api/v1/streams', require('./routes/streams/root'))
 app.use('/api/v1/academicterm', require('./routes/academicterm/root'))
 app.use('/api/v1/academicyear', require('./routes/academicyear/root'))
+app.use('/api/v1/exams', require('./routes/exams/root'))
 //teachers routes
 //app.use('/api/v1/teachers', require('./routes/teachers/root'))
 app.all('*',(req,res,next)=>{ 

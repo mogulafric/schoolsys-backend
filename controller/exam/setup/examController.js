@@ -1,18 +1,18 @@
 const ExamSetup = require("../../../model/exam/setup");
-const catchAsync = require("../../utils/catchAsync.js");
+const catchAsync = require("../../../utils/catchAsync");
 
 const   getAllExams = catchAsync(async (req, res, next) => {
   const examSetup = await ExamSetup.find();
   if (!examSetup) return res.status(204).json({status:'success',  data:examSetup });
   res.status(200).json({
     status: "success",
-    result: students.length,
+    result: examSetup.length,
     data: examSetup,
   });
 });
 const registerExam = catchAsync(async (req, res, next) => {
   const {examName, examCode, termID, yearID, examDescription} = req.body;
-  const duplicate = await Student.findOne({
+  const duplicate = await ExamSetup.findOne({
     examCode: examCode,
   }).exec();
   if (duplicate)
@@ -25,7 +25,7 @@ const registerExam = catchAsync(async (req, res, next) => {
      examCode:examCode,
      termID:termID, 
      yearID:yearID,
-     examDescriptionexamName:examDescriptionexamName,
+     examDescription:examDescription,
      examCode:examCode,
      termID:termID,
      yearID:yearID,
@@ -76,7 +76,7 @@ const updateExam = catchAsync(async (req, res, next) => {
     .json({ status: "success", result: result.length, data: result });
 });
 
-const getExamById = catchAsync(async (req, res, next) => {
+const getExamByid = catchAsync(async (req, res, next) => {
   const _id = req.params.id
     if (!_id )
     return res.status(400).json({ status:'success',message: "Exam ID required." });
@@ -123,7 +123,8 @@ module.exports = {
   getAllExams,
   registerExam,
   updateExam,
-  getexambyid,
-  archive,
-  deactivate
+  getExamByid,
+  
 };
+// archive,
+//   deactivate
