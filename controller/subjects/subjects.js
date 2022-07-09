@@ -31,7 +31,7 @@ const registerSubject = catchAsyn(async(req,res,next)=>{
     
 })
 const getSubjectById = catchAsyn(async(req,res,next)=>{
-    const _id = req.body._id
+    const _id = req.params.id
     if(!_id){return res.status(400).json({status:'failed', message:'Sorry, we could find a match for your query, Id is required'})}
     const getSubject = await Subject.findOne({_id:_id})
     if(!getSubject){ res.status(204).json({status:'success', result:getSubject.length,data:getSubject})}

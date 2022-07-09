@@ -15,7 +15,7 @@ const registerterm = catchAsync(async(req,res,next)=>{
     res.status(201).json({status:'success',data:result});
 })
 const getTerm = catchAsync(async(req,res,next)=>{
-    const _id=req.body._id
+    const _id=req.params.id
     if (!_id) return res.status(400).json({status:'failed',message:'Subject ID required.' });
     const academicTerm = await AcademicTerm.findOne({ _id:_id }).exec();
     if (!academicTerm){

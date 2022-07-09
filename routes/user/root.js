@@ -19,7 +19,7 @@ router.route('/self/bioupdate')
 //user-system-account-admin routes
 router.route('/getusers')
 .get(userController.getAllUsers)
-router.route('/getuserbyid')
+router.route('/getuserbyid/:id')
 .get(userController.getAllUser)
 router.route('/updatebio')
 .patch(userController.updateBio)

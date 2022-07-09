@@ -17,7 +17,7 @@ const registerYear = catchAsyn(async(req,res,next)=>{
     res.status(201).json({status:'success',result:result.length, data:result})
 })
 const getYear = catchAsyn(async(req,res,next)=>{
-    const _id = req.body._id
+    const _id = req.params.id
     if (!_id ) return res.status(400).json({ status:'failed',message: 'The id supplied does not match our record.' });
     const academicYear = await AcademicYear.findOne({ _id:_id }).exec();
     if (!academicYear) {

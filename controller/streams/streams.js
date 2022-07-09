@@ -26,7 +26,7 @@ const registerStream = catchAsync(async (req, res, next) => {
  
 });
 const getStreamById = catchAsync(async (req, res, next) => {
-  const _id = req.body._id
+  const _id = req.params.id
   if (!_id) {
     return res.status(400).json({staus:'failed', message:"The id used did not match any unit ID" });
   }

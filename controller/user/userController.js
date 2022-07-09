@@ -8,7 +8,6 @@ const selfPasswordReset = catchAsync(async (req, res, next) => {
   console.log(req.body.id);
   const userID = { _id: req.body.id };
   const checkEmailExist = await User.find(userID);
-
   if (!checkEmailExist)
     return res
       .status(400)
@@ -23,7 +22,6 @@ const selfPasswordReset = catchAsync(async (req, res, next) => {
   const oldPassword = await bcrypt.hash(req.body.oldPassword, 10);
   const oldPasswordQuery = { password: oldPassword };
   const hashedPwd = await bcrypt.hash(req.body.password, 10);
-
   const updatePassword = await User.updateOne(
     { _id: req.body.id },
     { password: hashedPwd, passwordConfirm: hashedPwd },
@@ -39,7 +37,6 @@ const selfPasswordReset = catchAsync(async (req, res, next) => {
     data: updatePassword
   })
 })
-
 const selfArchive = catchAsync(async (req, res, next) => {})
 
 const selfBioUpdate = catchAsync(async (req, res, next) => {
@@ -85,9 +82,9 @@ const getAllUsers = catchAsync(async (req, res, next) => {
   })
 });
 const getAllUser = catchAsync(async (req, res, next) => {
-  const userID = { _id: req.body._id };
-  console.log(req.body._id);
-  if (!req.body._id)
+  const userID = { _id:req.params.id};
+  console.log(userID);
+  if (!userID)
     return res
       .status(400)
       .json({ status: "failed", message: "user id does not exist" });
