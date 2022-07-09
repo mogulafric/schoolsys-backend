@@ -7,19 +7,19 @@ const examSchema = new Schema({
         required: true
     },
     examCode: {
-        type: Number,
+        type: String,
         required: true
     },
     termID: {
-        type: Number,
+        type: String,
         required: true
     },
     yearID: {
-        type: Number,
+        type: String,
         required: true
     },
     examDescription: {  
-        type: Number,
+        type: String,
         required: true
     }, 
     isArchived:{type:Boolean,default:false},

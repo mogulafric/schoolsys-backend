@@ -18,12 +18,22 @@ const maSchema = new Schema({
         type: Number,
         required: true
     },
-    Subject: [
+    subjects:
+        [
         {
-            name:{type:String},
-            marks:{type:Number}
+            subjectCode:String,
+            subjectName:String,
+            subjectScore:Number,
+            subjectGrade:String,
+            subjectGrade:String,
+            subjectPoints:Number,
+            subjectTeacher:String,
+            Comment:String
         }
     ],
+
+    points:Number,
+    position:Number,
     isArchived:{type:Boolean,default:false},
     isActive:{type:Boolean,default:true}
 });
