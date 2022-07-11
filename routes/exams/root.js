@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const setupController = require('../../controller/exam/setup/examController');
-// const marksController = require('../../controller/exam/')
+const marksController = require('../../controller/exam/marks/marksController')
 // const resultsController = require('../../controller/exam/')
 
 router.route('/setup/getallexams')
@@ -10,17 +10,20 @@ router.route('/setup/registerexam')
     .post(setupController.registerExam) 
 router.route('/setup/getexambyid/:id')
     .get(setupController.getExamByid)
-// // router.route('setup/deactivate')
+
+//router.route('setup/deactivate')
 // //     .patch(setupController.deactivate)
 // // router.route('setup/archive')
 // //     .patch(setupController.archive)
 // router.route('setup/updateExam')
 //     .patch(setupController.updateExam)
+
+
 // //mark
-// router.route('marks/getallexams')
-//     .get(teacherController.getAllExams)
-// router.route('marks/registerexam')
-//     .post(teacherController.registerExam) 
+router.route('/marks/getallmarks')
+     .get(marksController.getAllMarks)
+router.route('/marks/registerexam')
+    .post(marksController.registerMarks) 
 // router.route('marks/getexambyid')
 //     .get(teacherController.getExamById)
 // router.route('marks/deactivate')

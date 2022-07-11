@@ -1,21 +1,29 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const maSchema = new Schema({
+const marksSchema = new Schema({
     examName: {
         type: String,
         required: true
     },
     examCode: {
-        type: Number,
+        type: String,
+        required: true
+    },
+    examID: {
+        type: String,
         required: true
     },
     studentName: {
-        type: Number,
+        type: String,
         required: true
     },
-    StudentID: {
-        type: Number,
+    studentAdmission:{
+        type:Number,
+        required:true
+    },
+    studentID: {
+        type:String,
         required: true
     },
     subjects:
@@ -25,17 +33,19 @@ const maSchema = new Schema({
             subjectName:String,
             subjectScore:Number,
             subjectGrade:String,
-            subjectGrade:String,
+            subjectCategory:String,
             subjectPoints:Number,
             subjectTeacher:String,
-            Comment:String
+            subjectTeacherComment:String
         }
     ],
-
+    classTeacherName:String,
+    classTeacherComment:String,
+    principalName:String,
+    principalComment:String,
     points:Number,
     position:Number,
-    isArchived:{type:Boolean,default:false},
-    isActive:{type:Boolean,default:true}
+    isArchived:{type:Boolean,default:false, select:false},
+    isActive:{type:Boolean,default:true, select:false}
 });
-
-module.exports = mongoose.model('Exam', examSchema);
+module.exports = mongoose.model('Marks', marksSchema);

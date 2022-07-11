@@ -11,15 +11,11 @@ const   getAllExams = catchAsync(async (req, res, next) => {
   });
 });
 const registerExam = catchAsync(async (req, res, next) => {
-  const {examName, examCode, termID, yearID, examDescription} = req.body;
+  const {examName, examCode, termID, yearID, examDescription, unitID} = req.body;
   const duplicate = await ExamSetup.findOne({
     examCode: examCode,
   }).exec();
-  if (duplicate)
-    return res.status(409).json({
-      status: "success",
-      message: "Duplicate , Examcode must be unique",
-    }); //Conflict
+
   const result = await ExamSetup.create({
     examName:examName,
      examCode:examCode,
@@ -29,7 +25,7 @@ const registerExam = catchAsync(async (req, res, next) => {
      examCode:examCode,
      termID:termID,
      yearID:yearID,
-     examDescription:examDescription
+     unitID:unitID
   });
   res.status(201).json({
     status: "success",
@@ -38,7 +34,7 @@ const registerExam = catchAsync(async (req, res, next) => {
   });
 });
 const updateExam = catchAsync(async (req, res, next) => {
-    let {examName, examCode, termID, yearID, examDescription} = req.body;
+    let {examName, examCode, termID, yearID, examDescription, unitID} = req.body;
   if (!req?.body?._id) {
     return res
       .status(400)
@@ -56,6 +52,7 @@ const updateExam = catchAsync(async (req, res, next) => {
   if (!req.body?.termID) termID = examSetup.termID;
   if (!req.body?.yearID) yearID = examSetup.yearID;
   if (!req.body?.examDescription) examDescription = examSetup.examDescription;
+  if (!req.body?.unitID) unitID = examSetup.unitID;
 
   const result = await ExamSetup.updateOne(
     { _id: _id },

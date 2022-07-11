@@ -8,7 +8,9 @@ const examSchema = new Schema({
     },
     examCode: {
         type: String,
-        required: true
+        required: true,
+        unique:true
+       
     },
     termID: {
         type: String,
@@ -17,6 +19,10 @@ const examSchema = new Schema({
     yearID: {
         type: String,
         required: true
+    },
+    unitID:{
+        type:String,
+        required:true
     },
     examDescription: {  
         type: String,

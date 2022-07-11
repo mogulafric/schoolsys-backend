@@ -45,13 +45,14 @@ app.use('/api/v1/streams', require('./routes/streams/root'))
 app.use('/api/v1/academicterm', require('./routes/academicterm/root'))
 app.use('/api/v1/academicyear', require('./routes/academicyear/root'))
 app.use('/api/v1/exams', require('./routes/exams/root'))
+app.use('/api/v1/exams', require('./routes/exams/root'))
 //teachers routes
 //app.use('/api/v1/teachers', require('./routes/teachers/root'))
 app.all('*',(req,res,next)=>{ 
     next(new AppError(`Can't find ${req.originalUrl} on this server!`));
 })
 app.use(globalErrorHandler)
-mongoose.connection.once('open', () => {
+mongoose.connection.once('open',() => {
     console.log('Connected to MongoDB');
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 })
