@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const examSchema = new Schema({
+const examSetupSchema = new Schema({
     examName: {
         type: String,
         required: true
@@ -32,4 +32,4 @@ const examSchema = new Schema({
     isActive:{type:Boolean,default:true}
 });
 
-module.exports = mongoose.model('Exam', examSchema);
+module.exports = mongoose.model('ExamSetup',examSetupSchema);

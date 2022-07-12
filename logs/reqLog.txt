@@ -1134,3 +1134,8 @@
 20220711	10:12:28	00e4882f-31e0-4903-8cde-d0c5187ef98b	POST	undefined	/api/v1/exams/marks/registerexam
 20220711	10:13:28	9dd215f5-0626-4013-bff8-53c88695a8b6	POST	undefined	/api/v1/exams/marks/registerexam
 20220711	10:17:02	d983becc-9a59-4ab0-b43c-bcbda9a7443e	POST	undefined	/api/v1/exams/marks/registerexam
+20220711	15:47:25	13f0483a-9e1c-4abc-b09e-0e75abd142a7	PATCH	undefined	/api/v1/students/updatestudentbio
+20220711	15:47:35	635f7ed4-f412-4a0a-8ccf-5bcec14f8c83	PATCH	undefined	/api/v1/students/updatestudentbio
+20220711	15:48:20	60c39a27-ef41-49f0-a3a5-94e6a7794b1b	PATCH	undefined	/api/v1/students/updatestudentbio
+20220711	15:48:25	0f1d268b-7d3a-4267-b510-6934b2737674	PATCH	undefined	/api/v1/students/updatestudentbio
+20220711	15:48:53	c95a6d9b-bf28-49d0-a737-e711eaa0aaef	PATCH	undefined	/api/v1/students/updatestudentbio

@@ -112,7 +112,7 @@ const archiveStudent = catchAsync(async (req, res, next) => {
       .status(204)
       .json({ message: `No Student matches ID ${req.body.id}.` });
   }
-  const result = await Student.deleteOne(); //{ _id: req.body.id }
+  const result = await Student.deleteOne(); 
   res
     .status(200)
     .json({ status: "success", result: result.length, data: result });
