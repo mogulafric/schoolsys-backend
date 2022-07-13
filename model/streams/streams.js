@@ -10,10 +10,11 @@ const streamSchema = new Schema({
         type: Number,
         required: true
     },
-    unitID:{type:String},
+    unitID:{
+        type:String,
+        required:true
+    },
     isArchived:{type:Boolean,default:false},
     isActive:{type:Boolean,default:true}
-  
 });
-
 module.exports = mongoose.model('Stream', streamSchema);

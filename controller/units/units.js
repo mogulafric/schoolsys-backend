@@ -6,9 +6,9 @@ const getAllUnits = catchAsync(async (req, res, next) => {
   res.status(200).json({status:'success',result:units.length,data:units});
 });
 const registerunit = catchAsync(async (req, res, next) => {
-  const { unitID, unitName ,streams} = req.body;
+  const { unitCode, unitName ,streams} = req.body;
     const duplicate = await Unit.findOne({
-      unitID: unitID
+      unitCode: unitCode
     }).exec();
     if(duplicate)
       return res
@@ -18,7 +18,7 @@ const registerunit = catchAsync(async (req, res, next) => {
             "Duplication of unique fields not allowed!",
         }); //Conflict
     const result = await Unit.create({
-      unitID: unitID,
+      unitCode: unitCode,
       unitName: unitName,
       streams:streams
     });

@@ -26,19 +26,22 @@ const unitExamSchema = new Schema({
         type:String,
         required: true
     },
-    subjects:
-        [
+    subjects:[
+        
         {
-            subjectCode:{type:String},
-            subjectName:String,
-            subjectScore:Number,
-            subjectGrade:{type:String, select:false},
-            subjectCategory:{type:String, select:false},
-            subjectPoints:{type:String, select:false},
-            subjectTeacher:{type:String, select:false},
-            subjectTeacherComment:{type:String, select:false}
+            subjectCode:{type:String,Default:null},
+            subjectCode:{type:String,Default:null},
+            subjectCode:{type:String,Default:null},
+            subjectName:{type:String,Default:null},
+            subjectScore:{type:Number,default:null},
+            subjectGrade:{type:String, select:false,default:null},
+            subjectCategory:{type:String, select:false,default:null},
+            subjectPoints:{type:String, select:false,default:null},
+            subjectTeacher:{type:String, select:false,default:null},
+            subjectTeacherComment:{type:String, select:false,default:null}
         }
-    ],
+    ]
+    ,
     totalMars:Number,
     classTeacherName:String,
     classTeacherComment:String,

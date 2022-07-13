@@ -4,35 +4,43 @@ const ExamSetup = require("../../../model/exam/setup");
 const Student = require("../../../model/students/students")
 
 const   getAllMarks = catchAsync(async (req, res, next) => {
-  const examMarks = await ExamMarks.find();
-  if (!examMarks) return res.status(204).json({status:'success',  data:examMarks});
+  const ClassExam = await classExam.find();
+  if (!ClassExam) return res.status(204).json({status:'success',  data:examMarks});
   res.status(200).json({
     status: "success",
-    result: examMarks.length,
-    data: examMarks,
+    result: ClassExam.length,
+    data: ClassExam,
   });
 });
 const registerMarks = catchAsync(async(req, res, next)=>{
-  const {_id,unitID,examCode,examName}= req.body
-  const findExam = await ExamSetup.findOne({_id:_id})  
-    const findStudents = await Student.find({unitCurrent:unit})
+  const {_id,unitCode,unitID,examCode,examName}= req.body
+  let examID = _id
+
+  const findExam = await ExamSetup.findOne({_id:examID})  
+  const findStudents = await Student.find({unitCurrent:unitCode})
+  const checkExamExist = await classExam.findOne({examID:examID}).exec()
+  if(checkExamExist) return res.status(400).json({status:'failed', message:'Exam already exist'})
+  
     findStudents.forEach((item , index, arr)=>{
       let studentName = item.studentName
-      let studentId = item._id
+      let studentID = item._id
       let studentAdmission = item.admissionNumber
-      console.log(studentId)
-      const examMarks = ExamMarks.create({
+      
+      const unitExam = classExam.create({
         examName:examName,
         examCode:examCode,
-        examID:_id, 
+        examID:examID,
         studentName:studentName,
         studentAdmission:studentAdmission,
-        studentID: studentId
+        studentID: studentID
+      })
+      console.log(index + 1 +" "+ arr.length )
+      if(index + 1 === arr.length) return res.status(201).json({
+        status:"success",
+        
+        data:"created"
       })
     })
-   
- 
-
 })
 const addSubject = catchAsync(async(req,res, next)=>{
   const examID = req.body.examID
@@ -63,26 +71,34 @@ const addSubject = catchAsync(async(req,res, next)=>{
   })
 })
 
-const updateStudentMarks = catchAsync(async(req, res,next)=>{
-  const classExamID = req.body.classExamID
+const setExaminableSubject = catchAsync(async(req, res,next)=>{
+  const examID = req.body.examID
   const subjectID = req.body.subjectID
-  const subjectScore = req.body.subjectScore
-  const subjectIndex = req.body.subjectIndex
-  const querySubject = await classExam.find({classExamID:classExamID}).exec() 
-  if(querySubject) return res.status(400).json({
+  const subjectCategory = req.body.subjectCategory
+  const subjectName = req.body.subjectName
+  const subjectscore = null
+  const queryExamID = await classExam.find({examID:examID}).exec() 
+  if(!queryExamID) return res.status(400).json({
     status:'failed',
-    message:'We clould match class exam from supplied'
+    message:'The exam id provided has not been initiated'
   })
-  querySubject.forEach((item,index, arr)=>{
-    let query = `item.subjects[{subjectIndex}].{subjectName}= {subjectMarks}`
-    const updateSubjectScore = classExam.updateOne({classExamID:classExamID},{ query },{upsert:true}).exec()
+  
+  queryExamID.forEach((item,index, arr)=>{
+        item.subjects.subjectCategory = subjectCategory;
+        item.subjects.subjectName = subjectName;
+        let _id = item._id
+        let subjectIndex = item.subjects.length
+        let values= {subjectName:subjectName,subjectCategory:subjectCategory }
     
+       
+   classExam.findOneAndUpdate({_id: _id}, { '$set': {"subjects[subjectIndex].$" : values}});
 
-
+    
+  //   let query = {subjectName:subjectName,subjectCategory:subjectCategory, subjectscore:subjectscore}
+  //   console.log(query)
+  //  classExam.updateMany({"subjects.examID": query.ExamID}, {'$set': {"subjects.0.$": query}},{"multi": true }).exec()
   })
- 
 })
-
 const updateMarks = catchAsync(async (req, res, next) => {
     let marks= {English, examCode, termID, yearID, examDescription} = req.body;
   if (!req?.body?._id) {
@@ -135,41 +151,11 @@ const getExamByid = catchAsync(async (req, res, next) => {
   }
   res.json(examSetup);
 });
-// const archive = catchAsync(async (req, res, next) => {
-//   const {_id} = req.body;
-//   if (!req?.body?.id)
-//     return res.status(400).json({ message: " ID required." });
 
-//   const student = await Student.findOne({ _id: id }).exec();
-//   if (!student) {
-//     return res
-//       .status(204)
-//       .json({ message: `No Student matches ID ${req.body.id}.` });
-//   }
-//   const result = await Student.deleteOne(); //{ _id: req.body.id }
-//   res
-//     .status(200)
-//     .json({ status: "success", result: result.length, data: result });
-// });
-// const deactivate= catchAsync(async (req, res, next) => {
-//  const _id = req.body.params.id
-//   if (_id)
-//     return res.status(400).json({status:'', message: "Exam ID required." });
-//   const examSetup = await ExamSetup.findOne({_id: _id}).exec();
-//   if (!examSetup){
-//     return res
-//       .status(204)
-//       .json({
-//         status:'success',
-//         message: `No Exam matching ID ${req.params.id}.` });
-//   }
-//   res.status(200).json({status:'success', result:length.examSetup, data:result});
-// });
 module.exports = {
   getAllMarks,
   registerMarks,
   updateMarks,
   getExamByid,
+  setExaminableSubject,
 };
-// archive,
-//   deactivate

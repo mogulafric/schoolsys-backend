@@ -12,7 +12,7 @@ const getAllSubjects = catchAsyn(async(req,res,next)=>{
 
 })
 const registerSubject = catchAsyn(async(req,res,next)=>{
-    let {subjectCode, subjectName, subjectShortForm} = req.body;
+    let {subjectCode, subjectName, subjectShortForm,subjectCategory}= req.body;
     const duplicate = await Subject.findOne({
         subjectCode: subjectCode
     }).exec();
@@ -20,7 +20,8 @@ const registerSubject = catchAsyn(async(req,res,next)=>{
     const result = await Subject.create({
         subjectCode:subjectCode, 
         subjectName:subjectName,
-         subjectShortForm:subjectShortForm
+         subjectShortForm:subjectShortForm,
+         subjectCategory:subjectCategory
     });
   
     res.status(201).json({
