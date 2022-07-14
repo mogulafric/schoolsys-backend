@@ -2,20 +2,18 @@ const classExam = require("../../../model/exam/marks");
 const catchAsync = require("../../../utils/catchAsync");
 const ExamSetup = require("../../../model/exam/setup");
 const Student = require("../../../model/students/students")
-
 const   getAllMarks = catchAsync(async (req, res, next) => {
   const ClassExam = await classExam.find();
   if (!ClassExam) return res.status(204).json({status:'success',  data:examMarks});
   res.status(200).json({
     status: "success",
     result: ClassExam.length,
-    data: ClassExam,
+    data: ClassExam
   });
 });
 const registerMarks = catchAsync(async(req, res, next)=>{
   const {_id,unitCode,unitID,examCode,examName}= req.body
   let examID = _id
-
   const findExam = await ExamSetup.findOne({_id:examID})  
   const findStudents = await Student.find({unitCurrent:unitCode})
   const checkExamExist = await classExam.findOne({examID:examID}).exec()
@@ -84,19 +82,18 @@ const setExaminableSubject = catchAsync(async(req, res,next)=>{
   })
   
   queryExamID.forEach((item,index, arr)=>{
-        item.subjects.subjectCategory = subjectCategory;
-        item.subjects.subjectName = subjectName;
+       
         let _id = item._id
-        let subjectIndex = item.subjects.length
+      
         let values= {subjectName:subjectName,subjectCategory:subjectCategory }
     
-       
-   classExam.findOneAndUpdate({_id: _id}, { '$set': {"subjects[subjectIndex].$" : values}});
-
-    
-  //   let query = {subjectName:subjectName,subjectCategory:subjectCategory, subjectscore:subjectscore}
-  //   console.log(query)
-  //  classExam.updateMany({"subjects.examID": query.ExamID}, {'$set': {"subjects.0.$": query}},{"multi": true }).exec()
+    let query = {subjectCategory:subjectCategory,subjectName:subjectName,subjectscore:subjectscore}
+  const result =classExam.updateOne({_id: _id}, { $push: {subjects: query}}).exec()
+   
+  if(index + 1 ===arr.length) return res.status(200).json({
+    status:'success',
+    data:result
+   })
   })
 })
 const updateMarks = catchAsync(async (req, res, next) => {
@@ -118,7 +115,6 @@ const updateMarks = catchAsync(async (req, res, next) => {
   if (!req.body?.termID) termID = examSetup.termID;
   if (!req.body?.yearID) yearID = examSetup.yearID;
   if (!req.body?.examDescription) examDescription = examSetup.examDescription;
-
   const result = await ExamMarks.updateOne(
     { _id: _id },
     {
@@ -137,7 +133,6 @@ const updateMarks = catchAsync(async (req, res, next) => {
     .status(200)
     .json({ status: "success", result: result.length, data: result });
 });
-
 const getExamByid = catchAsync(async (req, res, next) => {
   const _id = req.params.id
     if (!_id )
@@ -151,7 +146,6 @@ const getExamByid = catchAsync(async (req, res, next) => {
   }
   res.json(examSetup);
 });
-
 module.exports = {
   getAllMarks,
   registerMarks,

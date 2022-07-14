@@ -1,26 +1,24 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
 const parentSchema = new Schema({
-    firstparent: {
+    firstParent: {
         type: String,
         required: true
     },
-   
-    firstparentnumber: {
-        type: Number,
+    secondParent: {
+        type: String,
+        
+    },
+    firstParentNumber: {
+        type: String,
         required: true
     },
-    secondparent: {
-        type: String 
-    },
-    secondparentnumber: {
-        type: Number 
+    secondParentNumber: {
+        type: String
+       
     },
     isArchived:{type:Boolean,default:false},
     isActive:{type:Boolean,default:true},
-   
-    studentadmissionnumber:[reference]
+    studentID:{type:String, required:true}
 });
-
 module.exports = mongoose.model('Parent', parentSchema);
