@@ -11,8 +11,8 @@ const streamSchema = new Schema({
         required: true
     },
     unitID:{
-        type:String,
-        required:true
+        type:mongoose.Schema.ObjectId,
+        ref:'Unit'
     },
     isArchived:{type:Boolean,default:false},
     isActive:{type:Boolean,default:true}

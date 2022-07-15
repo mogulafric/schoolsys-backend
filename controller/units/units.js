@@ -23,10 +23,9 @@ const registerunit = catchAsync(async (req, res, next) => {
       streams:streams
     });
     res.status(201).json(result);
- 
 });
 const getUnitById = catchAsync(async (req, res, next) => {
-  const _id = req.body._id
+  const _id = req.params.id
   if (!_id) {
     return res.status(400).json({staus:'failed', message:"The id used did not match any unit ID" });
   }
@@ -36,7 +35,6 @@ const getUnitById = catchAsync(async (req, res, next) => {
       .status(204)
       .json({ message: `Sorry, we could retrive data with provided ID ${req.body._id}.` });
   }
-  
   res.status(200).json({status:'success',result:unit.length,data:unit});
 });
 const updateUnit = catchAsync(async (req, res, next) => {

@@ -10,7 +10,8 @@ const academicTermSchema = new Schema({
         type: Number,
         required: true
     },
-    yearID:String
+    yearID:{type:mongoose.Schema.ObjectId,
+    ref:'AcademicYear'}
 });
 module.exports = mongoose.model('AcademicTerm', academicTermSchema);
 

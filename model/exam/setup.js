@@ -1,19 +1,16 @@
 const mongoose = require('mongoose');
-const Unit = require('../../model/units/unit')
 const Schema = mongoose.Schema;
-
 const examSetupSchema = new Schema({
     examName: {
         type: String,
         required: true
     },
-    examCode: {
+    examCode:{
         type: String,
         required: true,
         unique:true
-       
     },
-    termID: {
+    termID:{
         type:mongoose.Schema.ObjectId,
         ref:'AcademicTerm'
     },
@@ -32,5 +29,4 @@ const examSetupSchema = new Schema({
     isArchived:{type:Boolean,default:false},
     isActive:{type:Boolean,default:true}
 });
-
 module.exports = mongoose.model('ExamSetup',examSetupSchema);

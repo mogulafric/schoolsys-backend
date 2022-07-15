@@ -2,7 +2,15 @@ const Student = require("../../model/students/students.js");
 const catchAsync = require("../../utils/catchAsync.js");
 
 const getAllStudents = catchAsync(async (req, res, next) => {
-  const students = await Student.find();
+  const students = await Student.find().populate({
+    path:'parentID',
+    select:
+    'firstParent secondParent'
+  }).populate({
+    path:'stream',
+    select:
+    'streamName streamCode'
+  });
   if (!students) return res.status(204).json({ message: "No Students found." });
   res.status(200).json({
     status: "success",
@@ -96,7 +104,15 @@ const updateStudent = catchAsync(async (req, res, next) => {
 const getStudentById = catchAsync(async (req, res, next) => {
     let _id = req.params.id
     if(!_id) return res.status(400).json({status:'failed',message:'Error, user id not found'})
-    const getStudent = await Student.findOne({_id:_id})
+    const getStudent = await Student.findOne({_id:_id}).populate({
+      path:'parentID',
+      select:
+      'firstParent secondParent'
+    }).populate({
+      path:'stream',
+      select:
+      'streamName streamCode'
+    });
     if(!getStudent){return res.status(400).json({status:'failed', message:'Error, student not found'})}
     res.status(200).json({status:'success', result:getStudent.length, data:getStudent})
 

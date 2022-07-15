@@ -62,7 +62,6 @@ const updateTecaher = catchAsync(async(req,res,next)=>{
         result:result.length,
         data:result
     })
-    
 })
 const deactivate = catchAsync(async(req, res, next)=>{
     let _id = req.params._id
@@ -75,7 +74,6 @@ const deactivate = catchAsync(async(req, res, next)=>{
         result:result.length,
         data:result
     })
-
 })
 const archive = catchAsync(async(req, res, next)=>{
     let _id = req.params._id

@@ -2,22 +2,31 @@ const AcademicTerm = require('../../model/academicterm/academicterm');
 const catchAsync = require('../../utils/catchAsync')
 
 const getAllTerm = catchAsync(async(req,res,next)=>{
-    const AcademicTerms = await AcademicTerm.find();
+    const AcademicTerms = await AcademicTerm.find().populate({
+        path:'yearID',
+        select:
+        'beginsAt endsAt'
+    });
     if (!AcademicTerms) return res.status(204).json({ 'message': 'No Subject found.' });
     res.status(200).json({status:'sucess',result:AcademicTerms.length,data:AcademicTerms});
 })
 const registerterm = catchAsync(async(req,res,next)=>{
-    const {termName, termID } = req.body;
+    const {termName, termID , yearID} = req.body;
     const result = await AcademicTerm.create({
         termName:termName,
-        termID: termID
+        termID: termID,
+        yearID:YearID
     });
     res.status(201).json({status:'success',data:result});
 })
 const getTerm = catchAsync(async(req,res,next)=>{
     const _id=req.params.id
     if (!_id) return res.status(400).json({status:'failed',message:'Subject ID required.' });
-    const academicTerm = await AcademicTerm.findOne({ _id:_id }).exec();
+    const academicTerm = await AcademicTerm.findOne({ _id:_id }).populate({
+        path:'yearID',
+        select:
+        'beginsAt endsAt'
+    });
     if (!academicTerm){
     const academicTerm = await AcademicTerm.findOne({ _id: _id }).exec();
         return res.status(204).json({status:'succes' , data: academicTerm });

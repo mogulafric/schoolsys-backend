@@ -1,7 +1,10 @@
 const Stream = require("../../model/streams/streams");
 const catchAsync = require("../../utils/catchAsync.js");
 const getAllStreams = catchAsync(async (req, res, next) => {
-  const streams = await Stream.find();
+  const streams = await Stream.find().populate({
+    path:'unitID',
+    select:'unitName unitCode'
+  });
   if (!streams) return res.status(204).json({ status:'success',data:streams});
   res.status(200).json({status:'success',result:streams.length,data:streams});
 });
@@ -30,7 +33,10 @@ const getStreamById = catchAsync(async (req, res, next) => {
   if (!_id) {
     return res.status(400).json({staus:'failed', message:"The id used did not match any unit ID" });
   }
-  const stream = await Stream.findOne({ _id: _id }).exec();
+  const stream = await Stream.findOne({ _id: _id }).populate({
+    path:'unitID',
+    select:'unitName unitCode'
+  });
   if (!stream){
     return res
       .status(204)

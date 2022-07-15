@@ -43,11 +43,13 @@ const studentSchema = new Schema({
         enum:['Male','Female', 'Others']
     },
     image:[String],
-    parentID:[
-        {type:mongoose.Schema.Types.ObjectId,
-        ref: 'Parent'}
-    ],
-    stream:{type:String},
+    parentID:
+        {type:mongoose.Schema.ObjectId,
+        ref: 'Parent'},
+    
+    stream:{type:mongoose.Schema.ObjectId,
+        ref:'Stream'
+    },
     createdAt:{type:Date, Default:Date.now()},
     lastUpdated:{type:Date, Default:Date.now},
     isArchived:{type:Boolean,Default:false},

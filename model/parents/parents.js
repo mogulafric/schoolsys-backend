@@ -19,6 +19,8 @@ const parentSchema = new Schema({
     },
     isArchived:{type:Boolean,default:false},
     isActive:{type:Boolean,default:true},
-    studentID:{type:String, required:true}
+    studentID:{type:mongoose.Schema.ObjectId,
+        ref:'Student'
+    }
 });
 module.exports = mongoose.model('Parent', parentSchema);

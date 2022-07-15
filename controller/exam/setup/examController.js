@@ -117,7 +117,6 @@ const getExamByid = catchAsync(async (req, res, next) => {
   }
   res.json(examSetup);
 });
-
 module.exports = {
   getAllExams,
   registerExam,

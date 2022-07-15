@@ -2,7 +2,11 @@
 const Parents = require('../../model/parents/parents')
 const catchAsync = require('../../utils/catchAsync')
 const getAllParents = catchAsync(async(req, res, next)=>{
-    const result = await Parents.find()
+    const result = await Parents.find().populate({
+        path:'studentID',
+        select:
+        'studentName studentAdmissionNumbe'
+    })
     if(!result) return res.status(204).json({
         status:'success',
         result:result.length,
@@ -80,7 +84,11 @@ const archive = catchAsync(async(req, res, next)=>{
 })
 const  getParentById= catchAsync(async(req, res, next)=>{
     let _id = req.params.id
-    const result = await Parents.find({_id:_id}) 
+    const result = await Parents.find({_id:_id}).populate({
+        path:'studentID',
+        select:
+        'studentName studentAdmissionNumbe'
+    }) 
     if(!result) return res.status(204).json({
         status:'success',
         result:result.length,
