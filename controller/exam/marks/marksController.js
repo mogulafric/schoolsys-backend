@@ -40,33 +40,14 @@ const registerMarks = catchAsync(async(req, res, next)=>{
       })
     })
 })
-const addSubject = catchAsync(async(req,res, next)=>{
-  const examID = req.body.examID
-  const subjectName = req.body.subjectName
-  const subjectID= req.body._id
-  const unitID = req.body.unitID
-  const subjectCategory = req.body.subjectCategory
-  const subject = {subjectID:subjectID,subjectID:subjectName,subjectCategory:subjectCategory}
-  const subjects = [...all]
-  
-  const findStudents = await classExam.find({examID:examID}).exec()
-  if(!findStudents) return res.status(400).res.json({
-    status:'failed',
-    messages:'We could not find a matching uit for the object unit id supplied'
+const getClassExamById = catchAsync(async(req,res, next)=>{
+  const _id = req.params.id
+  const result = await classExam.findById({_id:_id})
+  if(!result) return res.status(204).json({
+    status:'',
+    message:'no data found'
   })
-  findStudents.forEach((item , index, arr)=>{
-    subjects.push(subject)
-    let subjectPush = classExam.updateMany({examID:examID},{
-      subjects:subjects
-    },{upsert:true})
-    if(index +1 ===arr.length){
-      res.status(200).json({
-        status:'Success',
-        messages:"Subject was created successfully",
-        data:subjectPush
-      })
-    }
-  })
+ 
 })
 
 const setExaminableSubject = catchAsync(async(req, res,next)=>{
@@ -90,6 +71,29 @@ const setExaminableSubject = catchAsync(async(req, res,next)=>{
     let query = {subjectCategory:subjectCategory,subjectName:subjectName,subjectscore:subjectscore}
   const result =classExam.updateOne({_id: _id}, { $push: {subjects: query}}).exec()
    
+  if(index + 1 ===arr.length) return res.status(200).json({
+    status:'success',
+    data:result
+   })
+  })
+})
+const unsetExaminableSubject = catchAsync(async(req, res,next)=>{
+  const examID = req.body.examID
+  const subjectID = req.body.subjectID
+  const subjectCategory = req.body.subjectCategory
+  const subjectName = req.body.subjectName
+  const subjectscore = null
+  const queryExamID = await classExam.find({examID:examID}).exec() 
+  if(!queryExamID) return res.status(400).json({
+    status:'failed',
+    message:'The exam id provided has not been initiated'
+  })
+  
+  queryExamID.forEach((item,index, arr)=>{
+        let _id = item._id
+        let values= {subjectName:subjectName,subjectCategory:subjectCategory }
+    let query = {subjectCategory:subjectCategory,subjectName:subjectName,subjectscore:subjectscore}
+  const result =classExam.updateOne({_id: _id}, { $push: {subjects: query}}).exec()
   if(index + 1 ===arr.length) return res.status(200).json({
     status:'success',
     data:result

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Unit = require('../../model/units/unit')
 const Schema = mongoose.Schema;
 
 const examSetupSchema = new Schema({
@@ -13,16 +14,16 @@ const examSetupSchema = new Schema({
        
     },
     termID: {
-        type: String,
-        required: true
+        type:mongoose.Schema.ObjectId,
+        ref:'AcademicTerm'
     },
     yearID: {
-        type: String,
-        required: true
+        type:mongoose.Schema.ObjectId,
+        ref: 'AcademicYear'
     },
     unitID:{
-        type:String,
-        required:true
+        type:mongoose.Schema.ObjectId,
+        ref: 'Unit'
     },
     examDescription: {  
         type: String,
