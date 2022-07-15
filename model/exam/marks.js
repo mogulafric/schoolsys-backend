@@ -11,8 +11,8 @@ const unitExamSchema = new Schema({
         required: true
     },
     examID: {
-        type: String,
-        required: true
+        type:mongoose.Schema.ObjectId,
+        ref:'ExamSetup'
     },
     studentName: {
         type: String,
@@ -23,8 +23,8 @@ const unitExamSchema = new Schema({
         required:true
     },
     studentID: {
-        type:String,
-        required: true
+        type:mongoose.Schema.ObjectId,
+        ref:'Student'
     },
     subjects:[
         

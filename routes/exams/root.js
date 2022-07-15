@@ -19,15 +19,15 @@ router.route('/setup/getexambyid/:id')
 //     .patch(setupController.updateExam)
 
 
-// //mark
+// //class exam
 router.route('/classexam/getallmarks')
      .get(marksController.getAllMarks)
 router.route('/classexam/registerexam')
     .post(marksController.registerMarks) 
 router.route('/class/setexamminablesubjec')
   .patch(marksController.setExaminableSubject)
-// router.route('marks/deactivate')
-//     .patch(teacherController.deactivate)
+router.route('/class/classexamgetbyid/:id')
+   .get(marksController.getClassExamById)
 // router.route('marks/archive')
 //     .patch(teacherController.archive)
 // router.route('marks/updateExam')

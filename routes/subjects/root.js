@@ -16,6 +16,5 @@ router.route('/archive')
     .get(subjectsController.archive)
 router.route('/deactivate')
     .get(subjectsController.deactivate)
-
 module.exports = router;
 

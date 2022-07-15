@@ -3,7 +3,13 @@ const catchAsync = require("../../../utils/catchAsync");
 const ExamSetup = require("../../../model/exam/setup");
 const Student = require("../../../model/students/students")
 const   getAllMarks = catchAsync(async (req, res, next) => {
-  const ClassExam = await classExam.find();
+  const ClassExam = await classExam.find().populate({
+    path:'examID',
+    select:'examName description'
+  }).populate({
+    path:'studentID',
+    select:'studentName studentAdmissionNumber'
+  })
   if (!ClassExam) return res.status(204).json({status:'success',  data:examMarks});
   res.status(200).json({
     status: "success",
@@ -42,10 +48,29 @@ const registerMarks = catchAsync(async(req, res, next)=>{
 })
 const getClassExamById = catchAsync(async(req,res, next)=>{
   const _id = req.params.id
-  const result = await classExam.findById({_id:_id})
+  const result = await classExam.findById({_id:_id}).populate({
+    path : 'examID',
+    select:'examName',
+    populate : {
+      path : 'termID',
+      select:'termName termCode',
+      populate:{
+        path:'yearID',
+        select:'beginsAt endsAt'
+      }
+    }
+  }).populate({
+    path:'studentID',
+    select:'studentName admissionNumber'
+  })
   if(!result) return res.status(204).json({
     status:'',
     message:'no data found'
+  })
+  res.status(200).json({
+    status:'success',
+    result:result.length,
+    data:result
   })
  
 })
@@ -156,4 +181,5 @@ module.exports = {
   updateMarks,
   getExamByid,
   setExaminableSubject,
+  getClassExamById,
 };
