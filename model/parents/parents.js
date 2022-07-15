@@ -10,11 +10,11 @@ const parentSchema = new Schema({
         
     },
     firstParentNumber: {
-        type: String,
+        type: Number,
         required: true
     },
     secondParentNumber: {
-        type: String
+        type: Number
        
     },
     isArchived:{type:Boolean,default:false},

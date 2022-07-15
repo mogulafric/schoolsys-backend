@@ -51,6 +51,7 @@ app.use('/api/v1/academicyear', require('./routes/academicyear/root'))
 app.use('/api/v1/exams', require('./routes/exams/root'))
 app.use('/api/v1/teachers', require('./routes/teachers/root'))
 app.use('/api/v1/parents', require('./routes/parents/root'))
+app.use('/api/v1/roles', require('./routes/roles/root'))
 app.all('*',(req,res,next)=>{ 
     next(new AppError(`Can't find ${req.originalUrl} on this server!`));
 })

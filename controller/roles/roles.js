@@ -1,52 +1,49 @@
-const Role = require('../model/Role');
-
-const getAllRoles = async (req, res) => {
+const Role = require('../../model/roles/roles');
+const catchAsync = require('../../utils/catchAsync');
+const getAllRoles = catchAsync (async (req, res, next) => {
     const roles = await Role.find();
     if (!roles) return res.status(204).json({ 'message': 'No Roles found.' });
-    res.json(roles);
-}
-
-const createNewRole = async (req, res) => {
-    const {rolename,rolecode} = req.body;
-    if (!rolename || !rolecode) {
-        return res.status(400).json({ 'message': 'Role name and role code are required' });
-    }
-
-  // check for duplicate roles in the db
-  const duplicate = await Role.findOne({ rolename: rolename, rolecode:rolecode }).exec();
-  if (duplicate) return res.sendStatus(409); //Conflict 
-    
-    try {
-        const result = await Role.create({
-            rolename: req.body.rolename,
-            rolecode: req.body.rolecode
+    res.status(200).json({
+        status:'success',
+        result:result.length,
+        data:result
+    });
+})
+const createNewRole =  catchAsync (async (req, res, next) => {
+    const {roleName,roleCode} = req.body;
+    const result = await Role.create({
+        roleName:roleName,
+        roleCode:roleCode
+    });
+        res.status(201).json({
+            status:'success',
+            result:result.length,
+            data:result
         });
+})
 
-        res.status(201).json(result);
-    } catch (err) {
-        console.error(err);
-    }
-}
-
-const updateRole = async (req, res) => {
+const updateRole = catchAsync(async (req, res, next) => {
     if (!req?.body?._id) {
-        return res.status(400).json({ 'message': 'ID parameter is required.' });
+        return res.status(400).json({ status:'failed',message: 'ID parameter is required.' });
     }
 
     const role = await Role.find({ _id: req.body._id }).exec();
     if (!role) {
-        return res.status(204).json({ "message": `No role matches ID ${req.body._id}.` });
+        return res.status(204).json({ status:'failed',message: `No role matches ID ${req.body._id}.` });
     }
-    if (req.body?.rolename) role.rolename = req.body.rolename;
-    if (req.body?.rolecode) role.rolecode = req.body.rolecode;
+    if (req.body?.roleName) role.roleName = req.body.roleName;
+    if (req.body?.roleCode) role.roleCode = req.body.roleCode;
     const result = await Role.create({
-        rolename: req.body.rolename,
-        rolecode: req.body.rolecode
+        roleName:roleName,
+        roleCode:roleCode
     });
-    res.json(result);
-}
-
-const deleteRole = async (req, res) => {
+    res.status(200).json({
+        status:'success',
+        result:result.length,
+        data:result
+    });
+})
+const deleteRole = catchAsync(async (req, res, next) => {
     if(!req?.body?.id) return res.status(400).json({ 'message': 'Role ID required.' });
 
     const role = await Role.findOne({ _id: req.body.id }).exec();
@@ -55,9 +52,8 @@ const deleteRole = async (req, res) => {
     }
     const result = await Role.deleteOne(); //{ _id: req.body.id }
     res.json(result);
-}
-
-const getRole = async (req, res) => {
+})
+const getRole = catchAsync (async (req, res, next) => {
     if (!req?.params?.id) return res.status(400).json({ 'message': 'Role ID required.' });
 
     const role = await Role.findOne({ _id: req.params.id }).exec();
@@ -65,8 +61,7 @@ const getRole = async (req, res) => {
         return res.status(204).json({ "message": `No role matches ID ${req.params.id}.` });
     }
     res.json(role);
-}
-
+})
 module.exports = {
     getAllRoles,
     createNewRole,

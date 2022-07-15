@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const teacherSchema = new Schema({
-    teacherTitile:{
+    teacherTitle:{
         type:String,
         required:true
     },
@@ -15,7 +15,7 @@ const teacherSchema = new Schema({
         type: String
     },
     teacherRole: {type:String},
-    teacherContact:{type:String},
+    teacherContact:{type:Number},
     teacherEmail:{type:String, required:[true, 'Email is required']},
     classTeacher:String,
     createAt:{type:Date, Default:Date.now()},
