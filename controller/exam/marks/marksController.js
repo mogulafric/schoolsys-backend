@@ -86,16 +86,11 @@ const setExaminableSubject = catchAsync(async(req, res,next)=>{
     status:'failed',
     message:'The exam id provided has not been initiated'
   })
-  
   queryExamID.forEach((item,index, arr)=>{
-       
         let _id = item._id
-      
         let values= {subjectName:subjectName,subjectCategory:subjectCategory }
-    
     let query = {subjectCategory:subjectCategory,subjectName:subjectName,subjectscore:subjectscore}
   const result =classExam.updateOne({_id: _id}, { $push: {subjects: query}}).exec()
-   
   if(index + 1 ===arr.length) return res.status(200).json({
     status:'success',
     data:result
@@ -103,12 +98,23 @@ const setExaminableSubject = catchAsync(async(req, res,next)=>{
   })
 })
 const unsetExaminableSubject = catchAsync(async(req, res,next)=>{
+  const {examID, subjectIndex}= req.params 
+
+
+ const queryExamID = await classExam.find().exec() 
+ queryExamID.forEach((item, index, arr)=>{
+  console.log(item.subjects[2].subjectCategory)
+ })
+ 
+})
+const updateSubjectMarks = catchAsync(async(req, res,next)=>{
   const examID = req.body.examID
   const subjectID = req.body.subjectID
+  const subjectscore = null
   const subjectCategory = req.body.subjectCategory
   const subjectName = req.body.subjectName
-  const subjectscore = null
-  const queryExamID = await classExam.find({examID:examID}).exec() 
+  
+  const queryExamID = await classExam.find().exec() 
   if(!queryExamID) return res.status(400).json({
     status:'failed',
     message:'The exam id provided has not been initiated'
@@ -118,7 +124,7 @@ const unsetExaminableSubject = catchAsync(async(req, res,next)=>{
         let _id = item._id
         let values= {subjectName:subjectName,subjectCategory:subjectCategory }
     let query = {subjectCategory:subjectCategory,subjectName:subjectName,subjectscore:subjectscore}
-  const result =classExam.updateOne({_id: _id}, { $push: {subjects: query}}).exec()
+  const result =classExam.findOneAndDelete({_id: _id}, { $pop: {subjects: query}}).exec()
   if(index + 1 ===arr.length) return res.status(200).json({
     status:'success',
     data:result
@@ -182,4 +188,5 @@ module.exports = {
   getExamByid,
   setExaminableSubject,
   getClassExamById,
+  unsetExaminableSubject,
 };
