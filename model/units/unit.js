@@ -10,7 +10,7 @@ const unitSchema = new Schema({
         required: true
     }, 
     streams: {type:mongoose.Schema.ObjectId,
-    ref:'Stream'
+    ref:'Unit'
 },
     isArchived:{type:Boolean,default:false},
     isActive:{type:Boolean,default:true}
