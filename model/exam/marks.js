@@ -26,118 +26,37 @@ const unitExamSchema = new Schema({
         type:mongoose.Schema.ObjectId,
         ref:'Student'
     },
-    ENGLISH: 
-        {
-            subjectCode:{type:String,Default:null},
-            subjectName:{type:String,Default:null},
-            subjectScore:{type:Number,default:null},
-            subjectGrade:{type:String, select:false,default:null},
-            subjectCategory:{type:String, select:false,default:null},
-            subjectPoints:{type:String, select:false,default:null},
-            subjectTeacher:{type:String, select:false,default:null},
-            subjectTeacherComment:{type:String, select:false,default:null}
-        }
-    ,
-    MATHEMATICS:{
-        subjectCode:{type:String,Default:null},
-        subjectName:{type:String,Default:null},
-        subjectScore:{type:Number,default:null},
-        subjectGrade:{type:String, select:false,default:null},
-        subjectCategory:{type:String, select:false,default:null},
-        subjectPoints:{type:String, select:false,default:null},
-        subjectTeacher:{type:String, select:false,default:null},
-        subjectTeacherComment:{type:String, select:false,default:null}
-    },
-    KISWAHILI:{
-        subjectCode:{type:String,Default:null},
-        subjectName:{type:String,Default:null},
-        subjectScore:{type:Number,default:null},
-        subjectGrade:{type:String, select:false,default:null},
-        subjectCategory:{type:String, select:false,default:null},
-        subjectPoints:{type:String, select:false,default:null},
-        subjectTeacher:{type:String, select:false,default:null},
-        subjectTeacherComment:{type:String, select:false,default:null}
-    },
-    BIOLOGY:{
-        subjectCode:{type:String,Default:null},
-        subjectName:{type:String,Default:null},
-        subjectScore:{type:Number,default:null},
-        subjectGrade:{type:String, select:false,default:null},
-        subjectCategory:{type:String, select:false,default:null},
-        subjectPoints:{type:String, select:false,default:null},
-        subjectTeacher:{type:String, select:false,default:null},
-        subjectTeacherComment:{type:String, select:false,default:null}
-    },
-    PHYSICS:{
-        subjectCode:{type:String,Default:null},
-        subjectName:{type:String,Default:null},
-        subjectScore:{type:Number,default:null},
-        subjectGrade:{type:String, select:false,default:null},
-        subjectCategory:{type:String, select:false,default:null},
-        subjectPoints:{type:String, select:false,default:null},
-        subjectTeacher:{type:String, select:false,default:null},
-        subjectTeacherComment:{type:String, select:false,default:null}
-    },
-    CHEMESTRY:{
-        subjectCode:{type:String,Default:null},
-        subjectName:{type:String,Default:null},
-        subjectScore:{type:Number,default:null},
-        subjectGrade:{type:String, select:false,default:null},
-        subjectCategory:{type:String, select:false,default:null},
-        subjectPoints:{type:String, select:false,default:null},
-        subjectTeacher:{type:String, select:false,default:null},
-        subjectTeacherComment:{type:String, select:false,default:null}
-    },
-    HISTORY:{
-        subjectCode:{type:String,Default:null},
-        subjectName:{type:String,Default:null},
-        subjectScore:{type:Number,default:null},
-        subjectGrade:{type:String, select:false,default:null},
-        subjectCategory:{type:String, select:false,default:null},
-        subjectPoints:{type:String, select:false,default:null},
-        subjectTeacher:{type:String, select:false,default:null},
-        subjectTeacherComment:{type:String, select:false,default:null}
-    },
-    CRE:{
-        subjectCode:{type:String,Default:null},
-        subjectName:{type:String,Default:null},
-        subjectScore:{type:Number,default:null},
-        subjectGrade:{type:String, select:false,default:null},
-        subjectCategory:{type:String, select:false,default:null},
-        subjectPoints:{type:String, select:false,default:null},
-        subjectTeacher:{type:String, select:false,default:null},
-        subjectTeacherComment:{type:String, select:false,default:null}
-    },
-    GEOGRAPHY:{
-        subjectCode:{type:String,Default:null},
-        subjectName:{type:String,Default:null},
-        subjectScore:{type:Number,default:null},
-        subjectGrade:{type:String, select:false,default:null},
-        subjectCategory:{type:String, select:false,default:null},
-        subjectPoints:{type:String, select:false,default:null},
-        subjectTeacher:{type:String, select:false,default:null},
-        subjectTeacherComment:{type:String, select:false,default:null}
-    },
-    BUSINESS:{
-        subjectCode:{type:String,Default:null},
-        subjectName:{type:String,Default:null},
-        subjectScore:{type:Number,default:null},
-        subjectGrade:{type:String, select:false,default:null},
-        subjectCategory:{type:String, select:false,default:null},
-        subjectPoints:{type:String, select:false,default:null},
-        subjectTeacher:{type:String, select:false,default:null},
-        subjectTeacherComment:{type:String, select:false,default:null}
-    },
-    AGRICULTURE:{
-        subjectCode:{type:String,Default:null},
-        subjectName:{type:String,Default:null},
-        subjectScore:{type:Number,default:null},
-        subjectGrade:{type:String, select:false,default:null},
-        subjectCategory:{type:String, select:false,default:null},
-        subjectPoints:{type:String, select:false,default:null},
-        subjectTeacher:{type:String, select:false,default:null},
-        subjectTeacherComment:{type:String, select:false,default:null}
-    },
+    ENGLISH: {type:Number, default:null},
+    MATHEMATICS:{type:Number, default:null},
+    KISWAHILI:{type:Number, default:null},
+    BIOLOGY:{type:Number, default:null},
+    PHYSICS:{type:Number, default:null},
+    CHEMESTRY:{type:Number, default:null},
+    HISTORY:{type:Number, default:null},
+    CRE:{type:Number, default:null},
+    GEOGRAPHY:{type:Number, default:null},
+    BUSINESS:{type:Number, default:null},
+    AGRICULTURE:{type:Number, default:null},
+   
+
+    ENGLISHGRADE:{String},
+    MATHEMATICSGRADE:{String},
+    KISWAHILISGRADE:{String},
+    BIOLOGYGRADE:{String},
+    PHYSICSGRADE:{String},
+    CHEMISTRYGRADE:{String},
+    HISTORYGRADE:{String},
+    CREGRADE:{String},
+    GEOGRAPHYGRADE:{String},
+    BUSINESSGRADE:{String},
+    AGRICULTUREGRADE:{String},
+
+
+
+
+
+
+
     totalMars:Number,
     classTeacherName:String,
     classTeacherComment:String,

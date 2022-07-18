@@ -65,7 +65,7 @@ const getClassExamById = catchAsync(async(req,res, next)=>{
     select:'studentName admissionNumber'
   })
   if(!result) return res.status(204).json({
-    status:'',
+    status:'success',
     message:'no data found'
   })
   res.status(200).json({
@@ -78,7 +78,7 @@ const getClassExamById = catchAsync(async(req,res, next)=>{
 
 const captureMarks= catchAsync(async(req, res,next)=>{
   const classExamID = req.body._id
-  let ENGILISH= req.body.ENGILISH
+  let ENGLISH= req.body.ENGLISH
   let KISWAHILI = req.body.KISWAHILI
   let MATHEMATICS = req.body.MATHEMATICS
   let BIOLOGY = req.body.BIOLOGY
@@ -89,60 +89,48 @@ const captureMarks= catchAsync(async(req, res,next)=>{
   let GEOGRAPHY = req.body.GEOGRAPHY
   let AGRICULTURE = req.body.AGRICULTURE
   let BUSINESS = req.body.BUSINESS
-  let subjectCategory = req.body.subjectCategory
-  let subjectName = req.body.subjectName
-  let subjectscore = null
+ 
   let queryClassExamID = await classExam.find({_id:classExamID}).exec() 
   if(!queryClassExamID) return res.status(400).json({
     status:'failed',
-    message:'The exam id provided has not been initiated'
+    message:'We sorry could not retrieve related information'
   })
-if (!req.body?.ENGILISH) ENGILISH = queryClassExamID.ENGILISH.subject;
+if (!req.body?.ENGLISH) ENGLISH = queryClassExamID.ENGLISH;
 if (!req.body?.KISWAHILI) KISWAHILI = queryClassExamID.KISWAHILI;
 if (!req.body?.MATHEMATICS) MATHEMATICS = queryClassExamID.MATHEMATICS;
 if (!req.body?.BIOLOGY) BIOLOGY = queryClassExamID.BIOLOGY;
 if (!req.body?.PHYSICS) PHYSICS = queryClassExamID.PHYSICS;
-if (!req.body?.CHEMISTRY) PHYSCHEMISTRYICS = queryClassExamID.CHEMISTRY;
 if (!req.body?.CHEMISTRY) CHEMISTRY = queryClassExamID.CHEMISTRY;
 if (!req.body?.HISTORY) HISTORY = queryClassExamID.HISTORY;
 if (!req.body?.CRE) CRE = queryClassExamID.CRE;
-if (!req.body?.CRE) GEOGRAPHY = queryClassExamID.GEOGRAPHY;
-if (!req.body?.CRE) AGRICULTURE = queryClassExamID.AGRICULTURE;
-
+if (!req.body?.GEOGRAPHY) GEOGRAPHY = queryClassExamID.GEOGRAPHY;
+if (!req.body?.AGRICULTURE) AGRICULTURE = queryClassExamID.AGRICULTURE;
+if (!req.body?.BUSINESS) BUSINESS = queryClassExamID.BUSINESS;
+console.log(ENGLISH)
+let queryMarcksCapture = {
+  ENGLISH:ENGLISH,
+  KISWAHILI:KISWAHILI,
+  MATHEMATICS:MATHEMATICS,
+  BIOLOGY:BIOLOGY,
+  PHYSICS:PHYSICS,
+  CHEMISTRY:CHEMISTRY,
+  HISTORY:HISTORY,
+  CRE:CRE,
+  GEOGRAPHY:GEOGRAPHY,
+  AGRICULTURE:AGRICULTURE,
+  BUSINESS:BUSINESS
+}
 const result = await classExam.updateMany(
-  {_id:classExamID},{},{query}
+  {_id:classExamID},queryMarcksCapture,{upsert:false}
 )  
+res.status(201).json({
+  status:'success',
+  result:result.length,
+  data:result
 })
-const unsetExaminableSubject = catchAsync(async(req, res,next)=>{
-  const {examID, subjectIndex}= req.params 
- const queryExamID = await classExam.find().exec() 
- queryExamID.forEach((item, index, arr)=>{
-  console.log(item.subjects[2].subjectCategory)
- })
 })
-const updateSubjectMarks = catchAsync(async(req, res,next)=>{
-  const examID = req.body.examID
-  const subjectID = req.body.subjectID
-  const subjectscore = null
-  const subjectCategory = req.body.subjectCategory
-  const subjectName = req.body.subjectName
-  
-  const queryExamID = await classExam.find().exec() 
-  if(!queryExamID) return res.status(400).json({
-    status:'failed',
-    message:'The exam id provided has not been initiated'
-  })
-  queryExamID.forEach((item,index, arr)=>{
-        let _id = item._id
-        let values= {subjectName:subjectName,subjectCategory:subjectCategory }
-    let query = {subjectCategory:subjectCategory,subjectName:subjectName,subjectscore:subjectscore}
-  const result =classExam.findOneAndDelete({_id: _id}, { $pop: {subjects: query}}).exec()
-  if(index + 1 ===arr.length) return res.status(200).json({
-    status:'success',
-    data:result
-   })
-  })
-})
+
+
 const updateMarks = catchAsync(async (req, res, next) => {
     let marks= {English, examCode, termID, yearID, examDescription} = req.body;
   if (!req?.body?._id) {
@@ -199,6 +187,6 @@ module.exports = {
   updateMarks,
   getExamByid,
   captureMarks,
-  getClassExamById,
-  unsetExaminableSubject,
+  getClassExamById
+  
 };

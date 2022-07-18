@@ -28,8 +28,7 @@ router.route('/class/capturemarks')
   .patch(marksController.captureMarks)
 router.route('/class/classexamgetbyid/:id')
    .get(marksController.getClassExamById)
-router.route('/class/unsetexaminablesubject/:examID/:subjectIndex')
-     .delete(marksController.unsetExaminableSubject)
+
 router.route('/marks/capturemarks')
     .patch(marksController.captureMarks)
 // //results
