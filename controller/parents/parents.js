@@ -84,14 +84,13 @@ const archive = catchAsync(async(req, res, next)=>{
 })
 const  getParentById= catchAsync(async(req, res, next)=>{
     let _id = req.params.id
-    const result = await Parents.find({_id:_id}).populate({
+    const result = await Parents.findById({_id:_id}).populate({
         path:'studentID',
         select:
         'studentName studentAdmissionNumbe'
     }) 
     if(!result) return res.status(204).json({
         status:'success',
-        result:result.length,
         data:result
     }) 
     res.status(201).json({

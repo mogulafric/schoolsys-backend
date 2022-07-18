@@ -1,7 +1,7 @@
 const Unit = require("../../model/units/unit");
 const catchAsync = require("../../utils/catchAsync.js");
 const getAllUnits = catchAsync(async (req, res, next) => {
-  const units = await Unit.find();
+  const units = await Unit.find()
   if (!units) return res.status(204).json({ status:'success',data:units});
   res.status(200).json({status:'success',result:units.length,data:units});
 });

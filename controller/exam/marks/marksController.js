@@ -78,26 +78,26 @@ const getClassExamById = catchAsync(async(req,res, next)=>{
 
 const captureMarks= catchAsync(async(req, res,next)=>{
   const classExamID = req.body._id
-  const ENGILISH = req.body.ENGILISH
-  const KISWAHILI = req.body.KISWAHILI
-  const MATHEMATICS = req.body.MATHEMATICS
-  const BIOLOGY = req.body.BIOLOGY
-  const PHYSICS = req.body.PHYSICS
-  const CHEMISTRY = req.body.CHEMISTRY
-  const HISTORY = req.body.HISTORY
-  const CRE = req.body.CRE
-  const GEOGRAPHY = req.body.GEOGRAPHY
-  const AGRICULTURE = req.body.AGRICULTURE
-  const BUSINESS = req.body.BUSINESS
-  const subjectCategory = req.body.subjectCategory
-  const subjectName = req.body.subjectName
-  const subjectscore = null
-  const queryClassExamID = await classExam.find({_id:classExamID}).exec() 
+  let ENGILISH= req.body.ENGILISH
+  let KISWAHILI = req.body.KISWAHILI
+  let MATHEMATICS = req.body.MATHEMATICS
+  let BIOLOGY = req.body.BIOLOGY
+  let PHYSICS = req.body.PHYSICS
+  let CHEMISTRY = req.body.CHEMISTRY
+  let HISTORY = req.body.HISTORY
+  let CRE = req.body.CRE
+  let GEOGRAPHY = req.body.GEOGRAPHY
+  let AGRICULTURE = req.body.AGRICULTURE
+  let BUSINESS = req.body.BUSINESS
+  let subjectCategory = req.body.subjectCategory
+  let subjectName = req.body.subjectName
+  let subjectscore = null
+  let queryClassExamID = await classExam.find({_id:classExamID}).exec() 
   if(!queryClassExamID) return res.status(400).json({
     status:'failed',
     message:'The exam id provided has not been initiated'
   })
-if (!req.body?.ENGILISH) ENGILISH = queryClassExamID.ENGILISH;
+if (!req.body?.ENGILISH) ENGILISH = queryClassExamID.ENGILISH.subject;
 if (!req.body?.KISWAHILI) KISWAHILI = queryClassExamID.KISWAHILI;
 if (!req.body?.MATHEMATICS) MATHEMATICS = queryClassExamID.MATHEMATICS;
 if (!req.body?.BIOLOGY) BIOLOGY = queryClassExamID.BIOLOGY;
@@ -108,17 +108,17 @@ if (!req.body?.HISTORY) HISTORY = queryClassExamID.HISTORY;
 if (!req.body?.CRE) CRE = queryClassExamID.CRE;
 if (!req.body?.CRE) GEOGRAPHY = queryClassExamID.GEOGRAPHY;
 if (!req.body?.CRE) AGRICULTURE = queryClassExamID.AGRICULTURE;
-const result = await updateOne  
+
+const result = await classExam.updateMany(
+  {_id:classExamID},{},{query}
+)  
 })
 const unsetExaminableSubject = catchAsync(async(req, res,next)=>{
   const {examID, subjectIndex}= req.params 
-
-
  const queryExamID = await classExam.find().exec() 
  queryExamID.forEach((item, index, arr)=>{
   console.log(item.subjects[2].subjectCategory)
  })
- 
 })
 const updateSubjectMarks = catchAsync(async(req, res,next)=>{
   const examID = req.body.examID
@@ -132,7 +132,6 @@ const updateSubjectMarks = catchAsync(async(req, res,next)=>{
     status:'failed',
     message:'The exam id provided has not been initiated'
   })
-  
   queryExamID.forEach((item,index, arr)=>{
         let _id = item._id
         let values= {subjectName:subjectName,subjectCategory:subjectCategory }
