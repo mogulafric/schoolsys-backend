@@ -5,7 +5,7 @@ const Student = require("../../../model/students/students")
 const   getAllMarks = catchAsync(async (req, res, next) => {
   const ClassExam = await classExam.find().populate({
     path:'examID',
-    select:'examName description'
+    select:'examName examCode description'
   }).populate({
     path:'studentID',
     select:'studentName studentAdmissionNumber'
@@ -19,7 +19,7 @@ const   getAllMarks = catchAsync(async (req, res, next) => {
 });
 const registerMarks = catchAsync(async(req, res, next)=>{
   const {_id,unitCode,unitID,examCode,examName}= req.body
-  let examID = _id
+  let examID = examID
   const findExam = await ExamSetup.findOne({_id:examID})  
   const findStudents = await Student.find({unitCurrent:unitCode})
   const checkExamExist = await classExam.findOne({examID:examID}).exec()
@@ -48,10 +48,11 @@ const registerMarks = catchAsync(async(req, res, next)=>{
     })
 })
 const getClassExamById = catchAsync(async(req,res, next)=>{
-  const _id = req.params.id
-  const result = await classExam.findById({_id:_id}).populate({
+  const examID= req.params.examID
+  console.log(examID)
+  const result = await classExam.find({examID:examID}).populate({
     path : 'examID',
-    select:'examName',
+    select:'examName examCode',
     populate : {
       path : 'termID',
       select:'termName termCode',
@@ -131,42 +132,7 @@ res.status(201).json({
 })
 
 
-const updateMarks = catchAsync(async (req, res, next) => {
-    let marks= {English, examCode, termID, yearID, examDescription} = req.body;
-  if (!req?.body?._id) {
-    return res
-      .status(400)
-      .json({ status: "failed", message: "ID parameter is required." });
-  }
-  const examSetup = await ExamSetup.findOne({ _id:_id }).exec();
-  if (!examSetup) {
-    return res.status(400).json({
-      status: "failed",
-      message: `No student matches ID ${req.body._id}.`,
-    });
-  }
-  if (!req.body?.examName) examName = examSetup.examName;
-  if (!req.body?.examCode) examCode = examSetup.examCode;
-  if (!req.body?.termID) termID = examSetup.termID;
-  if (!req.body?.yearID) yearID = examSetup.yearID;
-  if (!req.body?.examDescription) examDescription = examSetup.examDescription;
-  const result = await ExamMarks.updateOne(
-    { _id: _id },
-    {
-        examName:examName,
-        examCode:examCode,
-        termID:termID, 
-        yearID:yearID,
-        examDescriptionexamName:examDescriptionexamName,
-        examCode:examCode,
-        termID:termID,
-        yearID:yearID,
-        examDescription:examDescription
-    }
-  );
-  res
-    .status(200)
-    .json({ status: "success", result: result.length, data: result });
+const getMarksByExamID = catchAsync(async (req, res, next) => {
 });
 const getExamByid = catchAsync(async (req, res, next) => {
   const _id = req.params.id
@@ -184,7 +150,7 @@ const getExamByid = catchAsync(async (req, res, next) => {
 module.exports = {
   getAllMarks,
   registerMarks,
-  updateMarks,
+  getMarksByExamID,
   getExamByid,
   captureMarks,
   getClassExamById
