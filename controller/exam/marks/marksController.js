@@ -4,11 +4,21 @@ const ExamSetup = require("../../../model/exam/setup");
 const Student = require("../../../model/students/students")
 const   getAllMarks = catchAsync(async (req, res, next) => {
   const ClassExam = await classExam.find().populate({
-    path:'examID',
-    select:'examName examCode description'
+    path : 'examID',
+    populate : {
+      path : 'termID',
+      populate:{
+        path:'yearID',
+        select:'beginsAt endsAt'
+      }
+    }
   }).populate({
-    path:'studentID',
-    select:'studentName studentAdmissionNumber'
+    path:'studentID'
+  }).populate({
+    path:'examID',
+    populate:{
+      path:'yearID'
+    }
   })
   if (!ClassExam) return res.status(204).json({status:'success',  data:examMarks});
   res.status(200).json({
@@ -49,21 +59,22 @@ const registerMarks = catchAsync(async(req, res, next)=>{
 })
 const getClassExamById = catchAsync(async(req,res, next)=>{
   const examID= req.params.examID
-  console.log(examID)
   const result = await classExam.find({examID:examID}).populate({
     path : 'examID',
-    select:'examName examCode',
     populate : {
       path : 'termID',
-      select:'termName termCode',
       populate:{
         path:'yearID',
         select:'beginsAt endsAt'
       }
     }
   }).populate({
-    path:'studentID',
-    select:'studentName admissionNumber'
+    path:'studentID'
+  }).populate({
+    path:'examID',
+    populate:{
+      path:'yearID'
+    }
   })
   if(!result) return res.status(204).json({
     status:'success',

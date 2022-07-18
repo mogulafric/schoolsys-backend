@@ -7,14 +7,7 @@ const unitExamSchema = new Schema({
         type:mongoose.Schema.ObjectId,
         ref:'ExamSetup'
     },
-    studentName: {
-        type: String,
-        required: true
-    },
-    studentAdmission:{
-        type:Number,
-        required:true
-    },
+   
     studentID: {
         type:mongoose.Schema.ObjectId,
         ref:'Student'

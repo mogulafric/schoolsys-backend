@@ -2380,3 +2380,14 @@
 20220718	19:42:32	4254ed10-ccbd-4c21-8801-efb56f62c636	GET	undefined	/api/v1/exams/class/classexamgetbyid/62ce06ccf1f23829f2883e73
 20220718	19:43:51	dc181f8f-a33b-4dee-9953-30e95cb689a9	GET	undefined	/api/v1/exams/classexam/getallmarks
 20220718	19:46:14	a43e8aeb-8443-4860-aaff-06a401fe9e02	GET	undefined	/api/v1/exams/classexam/getallmarks
+20220719	00:46:50	a74c63e8-2e0f-4fca-b889-cfbc33e6e515	GET	undefined	/api/v1/exams/class/classexamgetbyid/62ce06ccf1f23829f2883e73
+20220719	00:47:37	8a815080-322d-4830-b268-2ed0a9a0d2c6	GET	undefined	/api/v1/exams/class/classexamgetbyid/62ce06ccf1f23829f2883e73
+20220719	00:48:55	1c1de238-2641-49c6-98d0-91da4a24fbda	GET	undefined	/api/v1/exams/class/classexamgetbyid/62ce06ccf1f23829f2883e73
+20220719	00:49:20	7a5f616f-ead1-4851-8538-f20e675e4e36	GET	undefined	/api/v1/exams/class/classexamgetbyid/62ce06ccf1f23829f2883e73
+20220719	00:49:32	2be938b3-e5f7-4f16-bb7b-a3fc1d0fb4b5	GET	undefined	/api/v1/exams/classexam/getallmarks
+20220719	00:51:12	df05b2d5-6fc5-47e1-8184-0e6de1d9379e	GET	undefined	/api/v1/exams/classexam/getallmarks
+20220719	00:51:16	ccb07ebd-80f1-46c1-92df-54ad15b39330	GET	undefined	/api/v1/exams/classexam/getallmarks
+20220719	00:52:03	3148d22b-10a4-44a6-9bce-5d96bd2a96c7	GET	undefined	/api/v1/exams/class/classexamgetbyid/62ce06ccf1f23829f2883e73
+20220719	00:55:47	ff25f168-5c88-4553-a27d-a2704941e352	GET	undefined	/api/v1/exams/class/classexamgetbyid/62ce06ccf1f23829f2883e73
+20220719	00:57:41	7257da4b-ee1e-4690-b0f9-c34e276f2ef9	GET	undefined	/api/v1/exams/class/classexamgetbyid/62ce06ccf1f23829f2883e73
+20220719	01:05:32	4f9f2351-b9fb-4eab-adce-bd2974436e1c	GET	undefined	/api/v1/exams/classexam/getallmarks
