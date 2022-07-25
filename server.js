@@ -13,6 +13,8 @@ const cookieParser = require('cookie-parser');
 const credentials = require('./middleware/credentials');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db.js')
+const multer = require('multer')
+const upload = multer({dist:'public/img/users'})
 const PORT = process.env.PORT || 3500;
 //db connection strings - 
 connectDB()
@@ -38,6 +40,7 @@ app.use('/', require('./routes/root'))
 //general routes -
 
 app.use('/api/v1/auth', require('./routes/auth/root'))
+
 app.use(verifyJWT);
 app.use('/api/v1/user', require('./routes/user/root.js'))
 //students routes -

@@ -31,9 +31,9 @@ router.route('/class/classexamgetbyid/:examID')
 
 router.route('/marks/capturemarks')
     .patch(marksController.captureMarks)
-// //results
-// router.route('/marks/getclassexambyexamid')
-// .get(teacherController.getAllExams)
+//results
+router.route('/results/processresults')
+.patch(marksController.processResults)
 // router.route('results/registerexam')
 // .post(teacherController.registerExam) 
 // router.route('results/getexambyid')
