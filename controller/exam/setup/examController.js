@@ -1,4 +1,4 @@
-const ExamSetup = require("../../../model/exam/setup");
+const ExamSetup = require("../../../model/exam/examLines");
 const catchAsync = require("../../../utils/catchAsync");
 const units = require("../../../model/units/unit")
 

@@ -1,6 +1,6 @@
-const classExam = require("../../../model/exam/marks");
+const classExam = require("../../../model/exam/examLines");
 const catchAsync = require("../../../utils/catchAsync");
-const ExamSetup = require("../../../model/exam/setup");
+const ExamSetup = require("../../../model/exam/examLines");
 const Student = require("../../../model/students/students")
 const   getAllMarks = catchAsync(async (req, res, next) => {
   const ClassExam = await classExam.find().populate({
