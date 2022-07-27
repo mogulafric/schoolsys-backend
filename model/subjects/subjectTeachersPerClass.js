@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const subjectTeacherSchema = new Schema({
-    subjectCode: {type: String,required: [true, "This field is required"]},
-    subjectName: {type: String,required: true},
-    subjectShortForm: {type: String,required: true,},
-    subjectCategory:{type:String,enum:['Category1','Category2', 'Category3','Category4']},
-    isArchived:{type:Boolean,default:false},
-    isActive:{type:Boolean,default:true}
+    subjectID:{type:mongoose.Schema.ObjectId,ref:'Subject'},
+    TeacherID:{type:mongoose.Schema.ObjectId,ref:'Teacher'}, 
+    createdAt:{type:Date, Default:Date.now()},
+    lastUpdated:{type:Date, Default:Date.now()},
+    isArchived:{type:Boolean,Default:false},
+    isActive:{type:Boolean,Default:true}
 });
 module.exports = mongoose.model('SubjectTeacher', subjectTeacherSchema);

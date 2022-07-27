@@ -3,5 +3,7 @@ const Schema = mongoose.Schema;
 const streamTeacherSchema = new Schema({
     streamID:{type:mongoose.Schema.ObjectId,ref:'Stream'},
     teacherID:{type:mongoose.Schema.ObjectId,ref:'Teacher'},
+    isActive:{type:Boolean, Default:true},
+    isArchived:{type:Boolean, Default:false}
 });
 module.exports = mongoose.model('StreamTeacher', streamTeacherSchema);
