@@ -51,7 +51,7 @@ const studentSchema = new Schema({
         ref:'Stream'
     },
     createdAt:{type:Date, Default:Date.now()},
-    lastUpdated:{type:Date, Default:Date.now},
+    lastUpdated:{type:Date, Default:Date.now()},
     isArchived:{type:Boolean,Default:false},
     isActive:{type:Boolean,Default:true}
 });

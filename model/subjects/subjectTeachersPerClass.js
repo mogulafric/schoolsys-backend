@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const subjectTeacherSchema = new Schema({
     subjectID:{type:mongoose.Schema.ObjectId,ref:'Subject'},
-    TeacherID:{type:mongoose.Schema.ObjectId,ref:'Teacher'}, 
+    TeacherID:[{type:mongoose.Schema.ObjectId,ref:'Teacher'}], 
     createdAt:{type:Date, Default:Date.now()},
     lastUpdated:{type:Date, Default:Date.now()},
     isArchived:{type:Boolean,Default:false},
