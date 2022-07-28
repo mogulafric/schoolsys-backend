@@ -6772,3 +6772,4 @@
 20220728	03:02:52	346826b6-a4c1-4dcd-a40c-333046dcc02c	GET	undefined	/api/v1/units/getallclassteachers
 20220728	03:04:05	90f648b3-a5f5-4b5b-a775-6c3b102b6d27	GET	undefined	/api/v1/units/getallclassteachers
 20220728	03:05:03	19d6cbde-fc97-4394-9430-132a77e09117	GET	undefined	/api/v1/units/getallclassteachers
+20220728	15:32:06	ea5c3d46-822d-4df6-9f09-95fe80d8eebf	GET	undefined	/api/v1/units/getallclassteachers

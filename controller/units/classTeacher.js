@@ -75,8 +75,6 @@ const editClassTeacher = catchAsync(async (req, res, next) => {
 const deactivate = catchAsync(async (req, res, next) => {});
 
 const archive = catchAsync(async (req, res, next) => {});
-
-
 module.exports = {
     getAllClassTeachers,
     addAclassTeacher,

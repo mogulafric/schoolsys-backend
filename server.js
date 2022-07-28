@@ -59,7 +59,6 @@ app.use('/api/v1/school', require('./routes/school/root'))
 app.all('*',(req,res,next)=>{ 
     next(new AppError(`Can't find ${req.originalUrl} on this server!`));
 })
-
 app.use(globalErrorHandler)
 mongoose.connection.once('open',() => {
     console.log('Connected to MongoDB');
