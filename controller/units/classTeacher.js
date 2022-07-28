@@ -1,6 +1,5 @@
 const ClassTeacher = require("../../model/units/classTeachers");
 const catchAsync = require("../../utils/catchAsync.js");
-
 const getAllClassTeachers = catchAsync(async (req, res, next) => {
     const classTeachers = await ClassTeacher.find().populate({
         path: 'classID'
@@ -14,7 +13,7 @@ const getAllClassTeachers = catchAsync(async (req, res, next) => {
 const addAclassTeacher = catchAsync(async (req, res, next) => {
     const { classID, teacherID } = req.body;
     const duplicate = await ClassTeacher.findOne({
-        isActive: { $ne: ["true"] }
+        isActive: { $in: 'true'},classID:classID
     }).exec();
     if (duplicate)
         return res
@@ -23,13 +22,13 @@ const addAclassTeacher = catchAsync(async (req, res, next) => {
                 message:
                     "Kindly deactive the active account then trial again!",
             });
-    const result = await Unit.insertOne({
+    const result = await ClassTeacher.updateOne({},{
         classID: classID,
-        teacherID: teacherID
-    });
+        $push:{teacherID:teacherID}
+    },{upsert:true});
     res.status(201).json({
         status: 'success',
-        result: lenght.result,
+        result:result.length,
         data: result
     });
 });

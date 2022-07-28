@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const subjectTeacherSchema = new Schema({
+const subjectTeacherPerClassSchema = new Schema({
     subjectID:{type:mongoose.Schema.ObjectId,ref:'Subject'},
     TeacherID:[{type:mongoose.Schema.ObjectId,ref:'Teacher'}], 
     createdAt:{type:Date, Default:Date.now()},
@@ -9,4 +9,5 @@ const subjectTeacherSchema = new Schema({
     isArchived:{type:Boolean,Default:false},
     isActive:{type:Boolean,Default:true}
 });
-module.exports = mongoose.model('SubjectTeacher', subjectTeacherSchema);
+module.exports = mongoose.model('SubjectTeacherPerClass', subjectTeacherPerClassSchema);
+

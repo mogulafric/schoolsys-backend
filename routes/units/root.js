@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const unitsController = require('../../controller/units/units');
+const classTeacherController = require('../../controller/units/classTeacher')
 // const ROLES_LIST = require('../../config/roles_list');
 // const verifyRoles = require('../../middleware/verifyRoles');
 
@@ -16,10 +17,24 @@ router.route('/archive')
     .get(unitsController.archive)
 router.route('/deactivate')
     .get(unitsController.deactivateUnit)
-
-
-
-
-
 module.exports = router;
+
+
+// class teacher
+
+router.route('/getallclassteachers')
+    .get(classTeacherController.getAllClassTeachers)
+router.route('/addclassceacher')
+    .post(classTeacherController.addAclassTeacher) 
+router.route('/getclassteacherbyid/:id')
+    .get(classTeacherController.getClassteacherById)
+router.route('/updateclassteacher')
+    .patch(classTeacherController.editClassTeacher)
+router.route('/archive')
+    .get(classTeacherController.archive)
+router.route('/deactivate')
+    .get(classTeacherController.deactivate)
+module.exports = router;
+
+
 

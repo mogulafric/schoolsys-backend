@@ -21,8 +21,7 @@ const registerSubjectTeacherPerClass = catchAsyn(async (req, res, next) => {
     });
     const result = await SubjecTeacherPerClass.insertOne({
         subjectID: subjectID,
-        groupName: groupName,
-        groupShortName: groupShortName
+        $push:{teacherID:teacherID}
     });
     res.status(201).json({
         status: 'success',
@@ -39,7 +38,7 @@ const getSubjectTeacherPerClassById = catchAsyn(async (req, res, next) => {
             message: 'Sorry, we could find a match for your query, Id is required'
         })
     }
-    const getSubject = await SubjectGroup.findOne({
+    const getSubject = await SubjecTeacherPerClass.findOne({
         _id: _id
     })
     if (!getSubject) {
@@ -63,7 +62,7 @@ const updateSubjectTeacherPerClass = catchAsyn(async (req, res, next) => {
             message: 'Sorry, we could find a match for your query, Id is required'
         })
     }
-    const exist = await SubjectGroup.findOne({
+    const exist = await SubjecTeacherPerClass.findOne({
         _id: _id
     })
     if (!exist) {
@@ -81,7 +80,7 @@ const updateSubjectTeacherPerClass = catchAsyn(async (req, res, next) => {
         groupName: groupName,
         groupShortName: groupShortName
     }
-    const result = await SubjectGroup.updateOne(
+    const result = await SubjecTeacherPerClass.updateOne(
         { _id: _id },
         query,
         { upsert: true }
