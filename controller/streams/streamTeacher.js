@@ -1,11 +1,15 @@
 const StreamTeacher = require("../../model/streams/streamTeacher");
 const catchAsync = require("../../utils/catchAsync.js");
-const getAllStreams = catchAsync(async (req, res, next) => {
-  const streams = await Stream.find().populate({
+const getAllStreamTeachers = catchAsync(async (req, res, next) => {
+  const streamTeacher = await StreamTeacher.find().populate({
     path:'unitID',
-    select:'unitName unitCode'
+  }).populate({
+    path:teacherID
   });
-  if (!streams) return res.status(204).json({ status:'success',data:streams});
+  if (!streamTeacher) return res.status(204).json({ 
+    status:'success',
+    result:streamTeacher.length,
+    data:streamTeacher});
   res.status(200).json({status:'success',result:streams.length,data:streams});
 });
 const registerStream = catchAsync(async (req, res, next) => {
@@ -19,7 +23,7 @@ const registerStream = catchAsync(async (req, res, next) => {
         .json({
           message:
             "Duplication of unique fields not allowed!",
-        }); //Conflict
+        }); 
     const result = await Stream.create({
       unitID: unitID,
       streamName: streamName,

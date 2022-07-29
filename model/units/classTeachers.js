@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const classTeacherSchema = new Schema({
-   classID:{type:mongoose.Schema.ObjectId,ref:'Unit'},
+   unitID:{type:mongoose.Schema.ObjectId,ref:'Unit'},
    teacherID:[{type:mongoose.Schema.ObjectId,ref:'Teacher'}],
    createdAt:{type:Date, default:Date.now()},
    lastUpdated:{type:Date, default:Date.now()},

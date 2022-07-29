@@ -15,7 +15,7 @@ const examSetupSchema = new Schema({
     score: Number,
     points: Number,
     grade: String,
-    outOf: { type: Number, Default: 100 },
+    outOf:{type: Number,default: 100 },
     weight:{type:Number}
   }],
   subjectPapers: [{
@@ -26,11 +26,9 @@ const examSetupSchema = new Schema({
   }],
   subjectCatMain:[{
     subjectID:{type: mongoose.Schema.ObjectId,ref: "Subject"},
-    cat1:{score:Number, outOf:{type:Number,Defaults: 30, weight:Number}},
-    cat1:{score:Number, outOf:{type:Number,Defaults: 30, weight:Number}}
-  }],
-  subjectDefault:[{
-    subjectID:{type: mongoose.Schema.ObjectId,ref: "Subject"},
+    cat1:{score:Number, outOf:{type:Number,defaults: 30, weight:Number}},
+    cat2:{score:Number, outOf:{type:Number,defaults: 30, weight:Number}},
+    main:{score:Number, outOf:{type:Number,defaults: 30, weight:Number}}
   }],
   classTecher:{type: mongoose.Schema.ObjectId,ref: "classTeacher"},
   classTeacherRemarks:{type: mongoose.Schema.ObjectId,ref: "classTeacherRemarks"},

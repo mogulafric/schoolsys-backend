@@ -2,7 +2,7 @@ const ClassTeacher = require("../../model/units/classTeachers");
 const catchAsync = require("../../utils/catchAsync.js");
 const getAllClassTeachers = catchAsync(async (req, res, next) => {
     const classTeachers = await ClassTeacher.find().populate({
-        path: 'classID'
+        path: 'unitID'
     }).populate({
         path: 'teacherID'
     });
@@ -11,9 +11,9 @@ const getAllClassTeachers = catchAsync(async (req, res, next) => {
 });
 
 const addAclassTeacher = catchAsync(async (req, res, next) => {
-    const { classID, teacherID } = req.body;
+    const { unitID, teacherID } = req.body;
     const duplicate = await ClassTeacher.findOne({
-        isActive: { $in: 'true'},classID:classID
+        isActive: { $in: 'true'},unitID:unitID
     }).exec();
     if (duplicate)
         return res
@@ -23,7 +23,7 @@ const addAclassTeacher = catchAsync(async (req, res, next) => {
                     "Kindly deactive the active account then trial again!",
             });
     const result = await ClassTeacher.updateOne({},{
-        classID: classID,
+        unitID: unitID,
         $push:{teacherID:teacherID}
     },{upsert:true});
     res.status(201).json({
@@ -53,7 +53,7 @@ const getClassteacherById = catchAsync(async (req, res, next) => {
     });
 });
 const editClassTeacher = catchAsync(async (req, res, next) => {
-    let { classID, teacherID, _id } = req.body
+    let { unitID, teacherID, _id } = req.body
     if (!_id)
         return res.status(400).json({ status: 'failed', message: "Subject ID required" });
     const classTeacher = await ClassTeacher.findOne({ _id: _id }).exec();
@@ -62,9 +62,9 @@ const editClassTeacher = catchAsync(async (req, res, next) => {
             .status(204)
             .json({ status: 'failed', message: `The supplied Id did not matches any unit ${_id}.`, data: unit });
     }
-    if (req.body?.classID) classTeacher.classID = classID;
+    if (req.body?.unitID) classTeacher.unitID = unitID;
     if (req.body?.teacherID) classTeacher.teacherID = teacherID;
-    const query = { classID, teacherID }
+    const query = { unitID, teacherID }
     const result = await ClassTeacher.updateOne({ _id: _id }, query, { upsert: true });
     res.status(200).json({
         status: 'success',
