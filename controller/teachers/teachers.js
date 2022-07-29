@@ -88,7 +88,7 @@ const archive = catchAsync(async(req, res, next)=>{
 })
 const  getTeacherById= catchAsync(async(req, res, next)=>{
     let _id = req.params.id
-    const result = await Teachers.find({_id:_id}) 
+    const result = await Teachers.findOneAndRemove({_id:_id}) 
     if(!result) return res.status(204).json({
         status:'success',
         result:result.length,

@@ -50,7 +50,7 @@ const registerExam = catchAsync(async (req, res, next) => {
     unitID:unitID
   })
   let result = [];
-  findStudentsInClass.forEach((item,index, next)=>{
+  findStudentsInClass.forEach(async(item,index, next)=>{
     studentID = item.studentID;
     let resultPerItem = await ExamLines.create({
       studentID:studentID,
@@ -104,7 +104,7 @@ const updateExam = catchAsync(async (req, res, next) => {
   if (!req.body?.examDescription) examDescription = examSetup.examDescription;
   if (!req.body?.unitID) unitID = examSetup.unitID;
 
-  const result = await ExamSetup.updateOne(
+  const result = await ExamLines.updateOne(
     { _id: _id },
     {
       examName: examName,
@@ -128,7 +128,7 @@ const getExamByid = catchAsync(async (req, res, next) => {
   if (!_id)
     return res.status(400).json({ status: 'success', message: "Exam ID required." });
 
-  const examSetup = await ExamSetup.findById({ _id: req.params.id }).populate({
+  const examSetup = await ExamLines.findById({ _id: req.params.id }).populate({
     path: 'unitID',
     select:
       'unitName unitCode',
