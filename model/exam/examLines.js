@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const examSetupSchema = new Schema({
-  examName: {type: String,required: true,},
-  examCode: {type: String,required: true,unique: true,},
-  termID: {type: mongoose.Schema.ObjectId,ref: "AcademicTerm"},
-  yearID: {type: mongoose.Schema.ObjectId,ref: "AcademicYear"},
-  unitID: {type: mongoose.Schema.ObjectId,ref: "Unit"},
+  examName: {type: String,required: true},
+  examCode: {type: String,required: true},
+  termID: {type: mongoose.Schema.ObjectId,ref: "AcademicTerm", required:true},
+  yearID: {type: mongoose.Schema.ObjectId,ref: "AcademicYear",required:true},
+  unitID: {type: mongoose.Schema.ObjectId,ref: "Unit", required:true},
   examDescription: {type: String,required: true},
   subject:[{
     subjectID:{type: mongoose.Schema.ObjectId,ref: "Subject"},
-    subjectTeacher:{type: mongoose.Schema.ObjectId,ref: "SubjectTeachers"},
+    subjectTeacher:{type: mongoose.Schema.ObjectId,ref: "SubjectTeachers", },
     subjectGroupID:{type: mongoose.Schema.ObjectId,ref: "SubjectTeachers"},
     name: String,
     score: Number,

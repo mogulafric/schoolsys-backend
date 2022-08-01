@@ -1,6 +1,7 @@
 const ExamLines = require("../../../model/exam/examLines");
 const catchAsync = require("../../../utils/catchAsync");
-const units = require("../../../model/units/unit")
+const Units = require("../../../model/units/unit");
+const Student = require("../../../model/students/students")
 
 const getAllExams = catchAsync(async (req, res, next) => {
   const examLines = await ExamLines.find().populate({
@@ -36,62 +37,75 @@ const registerExam = catchAsync(async (req, res, next) => {
     examDescription,
     unitID
   } = req.body;
-  let studentID ="";
+  let studentID = "";
   const duplicate = await ExamLines.findOne({
     examCode: examCode,
   }).exec();
-  if(duplicate){
-    return res.json({
-      status:'failed',
-      message:'A duplicate exam code exist'
+  if (duplicate) {
+    return res.status(400).json({
+      status: 'failed',
+      message: 'A duplicate exam code exist'
     })
   }
-  const findStudentsInClass = await ExamLines.find({
-    unitID:unitID
+  const findUnitExaist = await Units.findOne({
+    _id: unitID
   })
+  let unitCurrent = findUnitExaist.unitCode
+  let findStudentsInClass = await Student.find({
+    unitCurrent: unitCurrent
+  })
+  if (!findStudentsInClass) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'we could not find a matching classs contact your admin for assistance'
+    })
+  }
+
   let result = [];
-  findStudentsInClass.forEach(async(item,index, next)=>{
+  findStudentsInClass.forEach(async (item, index, arr) => {
     studentID = item.studentID;
     let resultPerItem = await ExamLines.create({
-      studentID:studentID,
+      studentID: studentID,
       examName: examName,
       examCode: examCode,
       termID: termID,
       yearID: yearID,
-      examDescription: examDescription,
-      examCode: examCode,
-      termID: termID,
-      yearID: yearID,
-      unitID: unitID
-    });
-    result.push(resultPerItem)
+      unitID:unitID,
+      examDescription: examDescription 
   })
-  res.status(201).json({
-    status: "success",
-    result: result.length,
-    data: result,
-  });
+  result.push(resultPerItem)
+  if(index + 1 === arr.length){
+    res.status(200).json( {
+      status:'success',
+      result:result.length,
+      data:result
+    })
+  }
+})
+
+
+
 });
 const updateExam = catchAsync(async (req, res, next) => {
-  let{ 
-    examName, 
-    termID, 
-    yearID, 
-    examDescription, 
+  let {
+    examName,
+    termID,
+    yearID,
+    examDescription,
     examCode,
   } = req.body;
-  if (!req?.body?._id){
+  if (!examCode){
     return res
       .status(400)
       .json({
-        status:"failed", 
-        message: "ID parameter is required." 
+        status: "failed",
+        message: "ID parameter is required."
       });
   }
-  const examline = await ExamLine.findOne({ 
+  const examline = await ExamLine.findOne({
     _id: _id
   }).exec();
-  if(!examlines){
+  if (!examlines) {
     return res.status(400).json({
       status: "failed",
       message: `No student matches ID ${req.body._id}.`,
@@ -159,5 +173,4 @@ module.exports = {
   registerExam,
   updateExam,
   getExamByid,
-
-};
+}
