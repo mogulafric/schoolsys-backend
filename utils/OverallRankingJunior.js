@@ -1,13 +1,14 @@
 
 // form one and two
-let {
-    totalMarks,
-    averagePoints,
-    meanMark,
-    meanGrade,
-    points
-}= ""
+
+
+
 function addMarks(_id, arrscore, arrpoints){
+let totalMarks = null
+let averagePoints = null
+let  meanMark = null
+let meanGrade = null
+let  points = null
     for (let i = 0; i < arrscore.length; i++) {
         totalMarks+= arrscore[i];
     }

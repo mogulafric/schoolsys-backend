@@ -27,7 +27,24 @@ const getAllExams = catchAsync(async (req, res, next) => {
     data: examLines,
   });
 });
-
+const getExamByExamCode = catchAsync (async(req, res, next)=>{
+   let examCode = req.params
+   if(!examCode){
+    return res.status(400).json({
+      status:'success',
+      message:'Exam code does not exist'
+    })
+   }
+   const findExamByCode = await ExamLines.find({
+    examCode:examCode
+   })
+   if(!findExamByCode){
+    return res.status(400).json({
+      status:'failed',
+      message:'We could not retrieve a matching exam code'
+    })
+   }
+})
 const registerExam = catchAsync(async (req, res, next) => {
   let {
     examName,
@@ -83,8 +100,6 @@ const registerExam = catchAsync(async (req, res, next) => {
   }
 })
 
-
-
 });
 const updateExam = catchAsync(async (req, res, next) => {
   let {
@@ -99,26 +114,28 @@ const updateExam = catchAsync(async (req, res, next) => {
       .status(400)
       .json({
         status: "failed",
-        message: "ID parameter is required."
+        message: " parameter is required."
       });
   }
-  const examline = await ExamLine.findOne({
-    _id: _id
+  const examline = await ExamLines.findOne({
+    examCode: examCode
   }).exec();
-  if (!examlines) {
+  if (!examline){
     return res.status(400).json({
       status: "failed",
       message: `No student matches ID ${req.body._id}.`,
     });
   }
+  const examlines = await ExamLines.find({
+    examCode: examCode
+  }).exec();
+  let result = [];
+  examlines.for(async(item,index, arr)=>{
   if (!req.body?.examName) examName = examSetup.examName;
-  if (!req.body?.examCode) examCode = examSetup.examCode;
   if (!req.body?.termID) termID = examSetup.termID;
   if (!req.body?.yearID) yearID = examSetup.yearID;
   if (!req.body?.examDescription) examDescription = examSetup.examDescription;
-  if (!req.body?.unitID) unitID = examSetup.unitID;
-
-  const result = await ExamLines.updateOne(
+  const result = await ExamLines.updateMany(
     { _id: _id },
     {
       examName: examName,
@@ -126,16 +143,16 @@ const updateExam = catchAsync(async (req, res, next) => {
       termID: termID,
       yearID: yearID,
       examDescriptionexamName: examDescriptionexamName,
-      examCode: examCode,
-      termID: termID,
-      yearID: yearID,
-      examDescription: examDescription
     }
   );
-  res
-    .status(200)
-    .json({ status: "success", result: result.length, data: result });
-});
+  if(index + 1 === arr.length){
+     return   res.status(200).json({ 
+      status: "success", result: result.length, data: result 
+    });
+   }
+ });
+})
+
 
 const getExamByid = catchAsync(async (req, res, next) => {
   const _id = req.params.id
@@ -170,6 +187,7 @@ const getExamByid = catchAsync(async (req, res, next) => {
 });
 module.exports = {
   getAllExams,
+  getExamByExamCode,
   registerExam,
   updateExam,
   getExamByid,

@@ -1,138 +1,120 @@
-const ExaminbleSubjects = require("../../../model/exam/examLines");
+const CaptureMarks = require("../../../model/exam/examLines");
 const catchAsync = require("../../../utils/catchAsync");
-const units = require("../../../model/units/unit")
-
-const getAllExaminableSubjects = catchAsync(async (req, res, next) => {
-  const examinbleSubjects = await ExaminbleSubjects.find().populate({
+const subjectGrading = require("../../../utils/subjectsGrading");
+const getAllCaptureMarksByExamCode = catchAsync(async (req, res, next) => {
+  let examCode = req.params
+  const captureMarks = await CaptureMarks.find({examCode:examCode}).populate({
     path: 'subjects.$.subjectID',
   })
-  if (!examinbleSubjects) return res.status(204).json({
+  if (!captureMarks) return res.status(204).json({
     status: 'success',
-    data: examinbleSubjects
+    data: captureMarks
   });
   res.status(200).json({
     status: "success",
-    result: examinbleSubjects.length,
-    data: examinbleSubjects,
+    result: captureMarks.length,
+    data: captureMarks,
   });
 });
 
-const pushExaminableSubject = catchAsync(async (req, res, next) => {
+const UpdateMarksPerStudentPerSubject = catchAsync(async (req, res, next) => {
   let {
-    examCode,
-    subjectID
+    _id,
+    subjectID,
+    name,
+    score
   } = req.body;
- 
-  const duplicate = await ExaminbleSubjects.findOne({
-    examCode:examCode, 
-    subject:[{subjectID:subjectID}]
-  }).exec();
-  if(duplicate){
-    return res.json({
-      status:'failed',
-      message:'duplication of examinable subjects not allowed'
-    })
-  }
-  const findStudentsInClass = await ExaminbleSubjects.find({
-    examCode:examCode
-  })
-  let result = [];
-  findStudentsInClass.forEach(async(item,index, next)=>{
-    let _id = item._id
-    let resultPerItem = await ExaminbleSubjects.updateMany({
-        _id:_id
-    },
-    {
-        $push:{
-            subject:$subject.$.subjectID
-        }
-    },
-    {
-        upsert:false
-    });
-    result.push(resultPerItem)
-  })
+  
+  let points = grades.subjectPoints
+  let grade = grades.subjectGrade
+  let comment = grades.subjectComment
+ let result =  await CaptureMarks.updateMany(
+  {_id:_id, "subject.subjectID":subjectID}, 
+  {$set: {"subject.$.score": score, "subject.$.points":points, "subject.$.grade":grade, "subject.$.comment":comment}
+})
   res.status(201).json({
     status: "success",
     result: result.length,
     data: result,
   });
 });
-const pullExaminableSubject = catchAsync(async (req, res, next) => {
-    let {
-        examCode,
-        subjectID
-      } = req.body;
-     
-      const duplicate = await ExaminbleSubjects.findOne({
-        examCode:examCode, 
-        subject:[{subjectID:subjectID}]
-      }).exec();
-      if(duplicate){
-        return res.json({
-          status:'failed',
-          message:'duplication of examinable subjects not allowed'
-        })
-      }
-      const findStudentsInClass = await ExaminbleSubjects.find({
-        examCode:examCode
-      })
-      let result = [];
-      findStudentsInClass.forEach(async(item,index, next)=>{
-        let _id = item._id
-        let resultPerItem = await ExaminbleSubjects.updateMany({
-            _id:_id
-        },
-        {
-            $pull:{
-                subject:$subject.$.subjectID
-            }
-        },
-        {
-            upsert:false
-        });
-        result.push(resultPerItem)
-      })
-      res.status(201).json({
-        status: "success",
-        result: result.length,
-        data: result,
-      });
-});
 
-const getexaminableSubjectsByexamCode = catchAsync(async (req, res, next) => {
-  const examCode = req.params.examCode
-  if (!examCode)
-    return res.status(400).json({ 
-      status: 'success', 
-      message: "Examcode required." 
-    });
-  const examinbleSubjects = await ExaminbleSubjects.findOne({ 
-    examCode: req.params.examCode
-  }).populate({
-    path: 'subject.$.subjectID'
-  })
-  if(!examinbleSubjects) return res.status(204).json({ 
-    status: 'success', 
-    data: ExaminbleSubjects 
-  });
-  res.status(200).json({
-    status: "success",
-    result: examSetup.length,
-    data: examinbleSubjects,
-  });
-  if(!examinbleSubjects){
-    return res
-      .status(204)
-      .json({ status: 'success', message: `No exam matches ID ${req.params.id}.` 
-    });
+const updateMutipleStudents = catchAsync(async (req, res, next) => {
+  let {
+    data
+  } = req.body;
+  if(!data){
+    return res.json({
+      status:'failed',
+      message: "No data was submitted"
+    })
   }
-  res.json(examinbleSubjects);
-});
-module.exports = {
-  getAllExaminableSubjects,
-  pushExaminableSubject,
-  pullExaminableSubject,
-  getexaminableSubjectsByexamCode,
+  let result = [];
+  data.forEach(async(item,index, arr)=>{
+    let _id = item._id
+    let score = item.subject.$.score
+    let name = item.subject.$.score
+    let grades = subjectGrading(name , score)
+    let points = grades.subject.$.subjectPoints 
+    let grade = grades.subject.$.subjectGrade
+    let comments = grades.subject.$.subjectComments
 
+   let resultPerItem = await CaptureMarks.updateMany(
+      {_id:_id, "subject.subjectID":subjectID}, 
+      {$set: {"subject.$.score": score, "subject.$.points":points, "subject.$.grade":grade, "subject.$.comment":comment}
+    })
+    result.push(resultPerItem)
+   if(index + 1 === arr.length){
+    return res.status(201).json({
+      status: "success",
+      result: result.length,
+      data: result,
+    });
+   }
+  })
+});
+const junior= catchAsync(async (req, res, next)=>{
+  let examCode =req.body
+  let findStudentList = await CaptureMarks.find({
+    examCode:examCode
+  })
+  let result = []
+  findStudentList.forEach(async(item, index, arr)=>{
+  let _id = item._id
+  let marksArray = []
+  let pointsArray = []
+  let subject = item.subject
+  subject.forEach(async( el, i, ar)=>{
+    marksArray.push(el.subject.$.score)
+    pointsArray.push(el.subject.$.points)
+  })
+  let itemResult = await overalJuniorRanking(_id, marksArray, pointsArray)
+  result.push(itemResult)
+  })
+})
+const senior = catchAsync(async(req, res, next)=>{
+  let examCode =req.body
+  let findStudentList = await CaptureMarks.find({
+    examCode:examCode
+  })
+  let result = []
+  findStudentList.forEach(async(item, index, arr)=>{
+  let _id = item._id
+  let marksArray = []
+  let pointsArray = []
+  let subject = item.subject
+  subject.forEach(async( el, i, ar)=>{
+    marksArray.push(el.subject.$.score)
+    pointsArray.push(el.subject.$.points)
+  })
+  let itemResult = await overalJuniorRanking(_id, marksArray, pointsArray)
+  result.push(itemResult)
+  })
+})
+module.exports = {
+  getAllCaptureMarksByExamCode,
+  UpdateMarksPerStudentPerSubject,
+  updateMutipleStudents,
+  junior,
+  senior
 };

@@ -28,7 +28,7 @@ const examSetupSchema = new Schema({
     subjectID:{type: mongoose.Schema.ObjectId,ref: "Subject"},
     cat1:{score:Number, outOf:{type:Number,defaults: 30, weight:Number}},
     cat2:{score:Number, outOf:{type:Number,defaults: 30, weight:Number}},
-    main:{score:Number, outOf:{type:Number,defaults: 30, weight:Number}}
+    main:{score:Number, outOf:{type:Number,defaults: 40, weight:Number}}
   }],
   classTecher:{type: mongoose.Schema.ObjectId,ref: "classTeacher"},
   classTeacherRemarks:{type: mongoose.Schema.ObjectId,ref: "classTeacherRemarks"},
