@@ -3,8 +3,20 @@ const catchAsync = require("../../../utils/catchAsync");
 const Units = require("../../../model/units/unit");
 const Student = require("../../../model/students/students");
 const { json } = require("body-parser");
-
 const getAllExams = catchAsync(async (req, res, next) => {
+
+  const examLines = await ExamLines.aggregate([
+      {"$group" : {"examCode":{examCode:"$examCode"}, count:{$sum:1}}},
+      {$sort:{"_id.source":1}}
+  ])
+  
+
+  res.json({
+    status:'success',
+    data:examLines
+  })
+})
+const getAllExam = catchAsync(async (req, res, next) => {
   let examCode = req.params.examCode
 
   console.log(examCode)
@@ -81,7 +93,6 @@ const registerExam = catchAsync(async (req, res, next) => {
       message: 'we could not find a matching classs contact your admin for assistance'
     })
   }
-
   let result = [];
   findStudentsInClass.forEach(async (item, index, arr) => {
    let studentID = item._id;
@@ -193,6 +204,7 @@ const getExamByid = catchAsync(async (req, res, next) => {
   res.json(examSetup);
 });
 module.exports = {
+  getAllExam,
   getAllExams,
   getExamByExamCode,
   registerExam,
