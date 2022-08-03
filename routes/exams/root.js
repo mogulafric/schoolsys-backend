@@ -4,12 +4,14 @@ const setupController = require('../../controller/exam/setup/examLinesController
 const subjectController = require('../../controller/exam/setup/examinableSubjects')
 const marksController = require('../../controller/exam/marks/examLines')
 // setup
-router.route('/setup/getallexams')
+router.route('/setup/getallexams/:examCode')
     .get(setupController.getAllExams)
 router.route('/setup/registerexam')
     .post(setupController.registerExam) 
 router.route('/setup/getexambyid/:id')
     .get(setupController.getExamByid)
+router.route('/setup/updateexambyexamcode')
+    .get(setupController.updateExam)
 // manage subject
 router.route('subject/getallexaminablesubjects')
     .patch(subjectController.getAllExaminableSubjects)

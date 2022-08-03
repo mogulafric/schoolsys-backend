@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const examSetupSchema = new Schema({
   examName: {type: String,required: true},
   examCode: {type: String,required: true},
+  studentID:{type: mongoose.Schema.ObjectId,ref: "Student",required:true},
   termID: {type: mongoose.Schema.ObjectId,ref: "AcademicTerm", required:true},
   yearID: {type: mongoose.Schema.ObjectId,ref: "AcademicYear",required:true},
   unitID: {type: mongoose.Schema.ObjectId,ref: "Unit", required:true},

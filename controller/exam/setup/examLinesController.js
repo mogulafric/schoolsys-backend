@@ -1,10 +1,14 @@
 const ExamLines = require("../../../model/exam/examLines");
 const catchAsync = require("../../../utils/catchAsync");
 const Units = require("../../../model/units/unit");
-const Student = require("../../../model/students/students")
+const Student = require("../../../model/students/students");
+const { json } = require("body-parser");
 
 const getAllExams = catchAsync(async (req, res, next) => {
-  const examLines = await ExamLines.find().populate({
+  let examCode = req.params.examCode
+
+  console.log(examCode)
+  const examLines = await ExamLines.find({examCode:examCode}).populate({
     path: 'unitID',
     select:
       'unitName unitCode',
@@ -54,7 +58,7 @@ const registerExam = catchAsync(async (req, res, next) => {
     examDescription,
     unitID
   } = req.body;
-  let studentID = "";
+ 
   const duplicate = await ExamLines.findOne({
     examCode: examCode,
   }).exec();
@@ -80,7 +84,8 @@ const registerExam = catchAsync(async (req, res, next) => {
 
   let result = [];
   findStudentsInClass.forEach(async (item, index, arr) => {
-    studentID = item.studentID;
+   let studentID = item._id;
+
     let resultPerItem = await ExamLines.create({
       studentID: studentID,
       examName: examName,
@@ -117,20 +122,22 @@ const updateExam = catchAsync(async (req, res, next) => {
         message: " parameter is required."
       });
   }
-  const examline = await ExamLines.findOne({
+  const examline = await ExamLines.find({
     examCode: examCode
   }).exec();
   if (!examline){
     return res.status(400).json({
       status: "failed",
-      message: `No student matches ID ${req.body._id}.`,
+      message: `mismatched of entered field!`,
     });
   }
-  const examlines = await ExamLines.find({
+  const data = await ExamLines.find({
     examCode: examCode
-  }).exec();
+  })
+  console.log(data)
   let result = [];
-  examlines.for(async(item,index, arr)=>{
+  data.forEach(async(item,index, arr)=>{
+  let _id = item._id
   if (!req.body?.examName) examName = examSetup.examName;
   if (!req.body?.termID) termID = examSetup.termID;
   if (!req.body?.yearID) yearID = examSetup.yearID;
@@ -142,7 +149,7 @@ const updateExam = catchAsync(async (req, res, next) => {
       examCode: examCode,
       termID: termID,
       yearID: yearID,
-      examDescriptionexamName: examDescriptionexamName,
+      examDescription: examDescription,
     }
   );
   if(index + 1 === arr.length){
