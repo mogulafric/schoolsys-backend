@@ -7026,3 +7026,14 @@
 20220803	16:00:11	7a4776fa-0ec4-47f3-b330-281da210dcc7	GET	undefined	/api/v1/exams/setup/getallexams
 20220803	16:01:41	51d10c93-62f7-43de-8c7a-fed756d3b0f2	GET	undefined	/api/v1/exams/setup/getallexams
 20220803	16:17:15	90e36ac5-0dfa-4652-a568-49853bfc40da	GET	undefined	/api/v1/exams/setup/getallexams
+20220803	20:34:29	88e41ce2-4cc1-46ed-a0c4-34d5f4367f4b	GET	undefined	/api/v1/exams/setup/getallexams
+20220803	20:35:26	b67302a1-bcb0-45df-b040-7c6b56de134c	GET	undefined	/api/v1/exams/setup/getallexams
+20220803	20:36:52	cf014abf-1c0e-4d13-a8f3-30e99b72fad6	GET	undefined	/api/v1/exams/setup/getallexams
+20220803	20:39:34	d0b7ee68-f711-4c1e-be9a-afb34781409e	GET	undefined	/api/v1/exams/setup/getallexams
+20220803	20:40:08	e7bae91d-3eee-4d28-b2f8-e3a4bc317af6	GET	undefined	/api/v1/exams/setup/getallexams
+20220803	20:40:40	a7343be7-904a-406d-8ea5-c26a38bebd71	GET	undefined	/api/v1/exams/setup/getallexams
+20220803	20:41:05	fec04cf1-138f-4bab-bb95-ecf5080e15ed	GET	undefined	/api/v1/exams/setup/getallexams
+20220803	20:42:43	29c12f34-036b-4533-b44a-1c713c0b9d18	GET	undefined	/api/v1/exams/setup/getallexams
+20220803	20:46:24	6b44e9a4-f62d-4c32-b298-202e9937fe96	GET	undefined	/api/v1/exams/setup/getallexams
+20220803	20:47:31	2b61dabc-fa41-4769-ba74-79f2aa0a0930	GET	undefined	/api/v1/exams/setup/getallexams
+20220803	20:47:47	2106a200-ade1-417f-948a-d08ba064d5f4	GET	undefined	/api/v1/exams/setup/getallexams

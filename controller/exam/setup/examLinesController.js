@@ -6,8 +6,21 @@ const { json } = require("body-parser");
 const getAllExams = catchAsync(async (req, res, next) => {
 
   const examLines = await ExamLines.aggregate([
-      {"$group" : {"examCode":{examCode:"$examCode"}, count:{$sum:1}}},
-      {$sort:{"_id.source":1}}
+      {"$group" : {"_id":{
+        examCode:"$examCode",
+         examName:"$examName",
+         yearID:"$yearID",
+         termID:"$termID"
+        }, 
+        count:{
+          $sum:1
+        }
+      }
+    },
+      {$sort:{"examCode":1}},
+      {$lookup:{
+        from:AcademicYear,
+      }}
   ])
   
 
