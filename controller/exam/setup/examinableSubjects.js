@@ -18,26 +18,26 @@ const getAllExaminableSubjects = catchAsync(async (req, res, next) => {
   });
 });
 const pushExaminableSubject = catchAsync(async (req, res, next) => {
-  let examCode = req.body
-  let subjectID = req.body
-  
+  let {examCode,subjectID, subjectName, subjectCode}= req.body
   const findStudentsInClass = await ExaminbleSubjects.find({
     examCode:examCode
   })
+  console.log(subjectID)
   let result = [];
-  findStudentsInClass.forEach(async(item,index, next)=>{
+  findStudentsInClass.forEach(async(item,index, arr)=>{
     let _id = item._id
-    let resultPerItem = await ExaminbleSubjects.updateMany({
+    let resultPerItem = await ExaminbleSubjects.updateOne({
         _id:_id
     },
     {
-        $push:{
-            subject:$subject.$.subjectID
+        $addToSet:{
+            "subject":[{"subjectID":subjectID}]
         }
     },
     {
-        upsert:true
+        upsert:false
     });
+
     result.push(resultPerItem)
     if(index + 1 === arr.length){
       return  res.status(201).json({
@@ -51,31 +51,22 @@ const pushExaminableSubject = catchAsync(async (req, res, next) => {
 const pullExaminableSubject = catchAsync(async (req, res, next) => {
     let {
         examCode,
-        subjectID
+        subject_id
       } = req.body;
      
-      const duplicate = await ExaminbleSubjects.findOne({
-        examCode:examCode, 
-        subject:[{subjectID:subjectID}]
-      }).exec();
-      if(duplicate){
-        return res.json({
-          status:'failed',
-          message:'duplication of examinable subjects not allowed'
-        })
-      }
+     
       const findStudentsInClass = await ExaminbleSubjects.find({
         examCode:examCode
       })
       let result = [];
-      findStudentsInClass.forEach(async(item,index, next)=>{
+      findStudentsInClass.forEach(async(item,index, arr)=>{
         let _id = item._id
         let resultPerItem = await ExaminbleSubjects.updateMany({
             _id:_id
         },
         {
             $pull:{
-                subject:$subject.$.subjectID
+              "subject":[{"_id":subject_id}]
             }
         },
         {

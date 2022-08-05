@@ -15,13 +15,13 @@ router.route('/setup/getexambyid/:id')
 router.route('/setup/updateexambyexamcode')
     .get(setupController.updateExam)
 // manage subject
-router.route('subject/getallexaminablesubjects')
+router.route('/subject/getallexaminablesubjects')
     .patch(subjectController.getAllExaminableSubjects)
-router.route('subject/pushexaminablesubject')
+router.route('/subject/pushexaminablesubject')
     .patch(subjectController.pushExaminableSubject)
-router.route('subject/pullexaminablesubject')
+router.route('/subject/pullexaminablesubject')
     .patch(subjectController.pullExaminableSubject)
-router.route('subject/getexaminablesubjectbyexamcode')
+router.route('/subject/getexaminablesubjectbyexamcode')
     .patch(subjectController.getexaminableSubjectsByexamCode)
 
 //class marks Capture

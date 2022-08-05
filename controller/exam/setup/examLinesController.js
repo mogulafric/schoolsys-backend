@@ -14,13 +14,12 @@ const getAllExams = catchAsync(async (req, res, next) => {
         }, 
         count:{
           $sum:1
-        }
+        },
+        
       }
     },
-      {$sort:{"examCode":1}},
-      {$lookup:{
-        from:AcademicYear,
-      }}
+      {$sort:{"examCode":1}}
+      
   ])
   
 

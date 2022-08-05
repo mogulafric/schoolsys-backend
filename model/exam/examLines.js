@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const examSetupSchema = new Schema({
   examName: {type: String,required: true},
-  examCode: {type: String,required: true},
+  examCode: {type: Number,required: true},
   studentID:{type: mongoose.Schema.ObjectId,ref: "Student",required:true},
   termID: {type: mongoose.Schema.ObjectId,ref: "AcademicTerm", required:true},
   yearID: {type: mongoose.Schema.ObjectId,ref: "AcademicYear",required:true},
   unitID: {type: mongoose.Schema.ObjectId,ref: "Unit", required:true},
   examDescription: {type: String,required: true},
-  subject:[{
+  subject:{
     subjectID:{type: mongoose.Schema.ObjectId,ref: "Subject"},
     subjectTeacher:{type: mongoose.Schema.ObjectId,ref: "SubjectTeachers", },
     subjectGroupID:{type: mongoose.Schema.ObjectId,ref: "SubjectTeachers"},
@@ -18,7 +18,7 @@ const examSetupSchema = new Schema({
     grade: String,
     outOf:{type: Number,default: 100 },
     weight:{type:Number}
-  }],
+  },
   subjectPapers: [{
     subjectID:{type: mongoose.Schema.ObjectId,ref: "Subject"},
     p1: { score: Number, outOf: { type: Number, Default: 60 }, weight:Number },
