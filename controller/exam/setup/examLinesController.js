@@ -14,15 +14,11 @@ const getAllExams = catchAsync(async (req, res, next) => {
         }, 
         count:{
           $sum:1
-        },
-        
+        }, 
       }
     },
       {$sort:{"examCode":1}}
-      
   ])
-  
-
   res.json({
     status:'success',
     data:examLines
