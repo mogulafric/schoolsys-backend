@@ -72,11 +72,10 @@ const updateSubjectGroup = catchAsyn(async (req, res, next) => {
             data: getSubject
         })
     }
-    if (!req.body?.subjectID) subjectID = getSubjectGroupById.subjectID
     if (!req.body?.groupName) groupName = getSubjectGroupById.groupName
     if (!req.body?.groupShortName) groupShortName = getSubjectGroupById.groupShortName
     let query = {
-        subjectID: subjectID,
+
         groupName: groupName,
         groupShortName: groupShortName
     }

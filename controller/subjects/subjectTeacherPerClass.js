@@ -11,17 +11,18 @@ const getAllSubjectTeachersPerClass = catchAsyn(async (req, res, next) => {
 })
 
 const registerSubjectTeacherPerClass = catchAsyn(async (req, res, next) => {
-    let {subjectID,teacherID} = req.body;
+    let {subjectID,teacherID, unitID} = req.body;
     const duplicate = await SubjecTeacherPerClass.findOne({
-        isActive: {$in:true}, subjectID:subjectID, teacherID:teacherID
+        subjectID:subjectID,unitID:unitID
     }).exec();
     if (duplicate) return res.status(409).json({
         status: "failed",
-        message: "Kindly, check if the previous active settings have been iniactived then try again"
+        message: "Kindly, ensure no duplication of class or subject, you can use update to add more  teachers per class"
     });
-    const result = await SubjecTeacherPerClass.insertOne({
+    const result = await SubjecTeacherPerClass.create({
         subjectID: subjectID,
-        $push:{teacherID:teacherID}
+        $push:{teacherID:teacherID},
+        unitID:unitID
     });
     res.status(201).json({
         status: 'success',
@@ -55,7 +56,7 @@ const getSubjectTeacherPerClassById = catchAsyn(async (req, res, next) => {
     })
 })
 const updateSubjectTeacherPerClass = catchAsyn(async (req, res, next) => {
-    let {subjectID,groupName,groupShortName, _id} = req.body
+    let {subjectID,teacherID,unitID,_id} = req.body
     if (!_id) {
         return res.status(400).json({
             status: 'failed',
@@ -72,17 +73,12 @@ const updateSubjectTeacherPerClass = catchAsyn(async (req, res, next) => {
             data: exist
         })
     }
-    if (!req.body?.subjectID) subjectID = getSubject.subjectID
-    if (!req.body?.groupName) groupName = getSubject.groupName
-    if (!req.body?.groupShortName) groupShortName = getSubject.groupShortName
-    let query = {
-        subjectID: subjectID,
-        groupName: groupName,
-        groupShortName: groupShortName
-    }
+    let teacherIDArr = exist.teacherID
+    let newTeacherIDArr = [...teacherIDArr,teacherID]
+    
     const result = await SubjecTeacherPerClass.updateOne(
         { _id: _id },
-        query,
+        {$addToSet:{teacherID:newTeacherIDArr}},
         { upsert: true }
     )
     res.status(200).json({

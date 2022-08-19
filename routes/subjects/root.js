@@ -25,7 +25,7 @@ router.route('/getallsubjectgroup')
     .get(subjectsGroups.getAllSubjectGroup)
 router.route('/registergroup')
     .post(subjectsGroups.registerSubjectGroup) 
-router.route('/getsubjectgroupby/:id')
+router.route('/getsubjectgroupbyid/:id')
     .get(subjectsGroups.getSubjectGroupById)
 router.route('/updatesubjectgroup')
     .patch(subjectsGroups.updateSubjectGroup)
@@ -34,7 +34,6 @@ router.route('/archive')
 router.route('/deactivate')
     .get(subjectsGroups.deactivate)
 
-    
 // subject teacher per classs
 router.route('/getallsubjectteacherspersclass')
     .get(subjectTeacher.getAllSubjectTeachersPerClass)
