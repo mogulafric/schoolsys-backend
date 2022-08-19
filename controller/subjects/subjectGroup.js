@@ -11,16 +11,15 @@ const getAllSubjectGroup = catchAsyn(async (req, res, next) => {
 })
 
 const registerSubjectGroup = catchAsyn(async (req, res, next) => {
-    let { subjectID, groupName, groupShortName } = req.body;
+    let { groupName, groupShortName } = req.body;
     const duplicate = await SubjectGroup.findOne({
-        subjectID: subjectID
+        groupName: groupName,groupShortName:groupShortName 
     }).exec();
     if (duplicate) return res.status(409).json({
         status: "success",
-        message: "Duplicate , the subject selected already exist"
+        message: "Duplication of subject groups not allowed!"
     });
-    const result = await SubjectGroup.insertOne({
-        subjectID: subjectID,
+    const result = await SubjectGroup.create({
         groupName: groupName,
         groupShortName: groupShortName
     });
@@ -56,7 +55,7 @@ const getSubjectGroupById = catchAsyn(async (req, res, next) => {
     })
 })
 const updateSubjectGroup = catchAsyn(async (req, res, next) => {
-    let {subjectID,groupName,groupShortName, _id} = req.body
+    let {groupName, groupShortName, _id} = req.body
     if (!_id) {
         return res.status(400).json({
             status: 'failed',
@@ -66,16 +65,16 @@ const updateSubjectGroup = catchAsyn(async (req, res, next) => {
     const getSubjectGroupById = await SubjectGroup.findOne({
         _id: _id
     })
-    if (!getSubject) {
+    if (!getSubjectGroupById) {
         res.status(204).json({
             status: 'success',
             result: getSubject.length,
             data: getSubject
         })
     }
-    if (!req.body?.subjectID) subjectID = getSubject.subjectID
-    if (!req.body?.groupName) groupName = getSubject.groupName
-    if (!req.body?.groupShortName) groupShortName = getSubject.groupShortName
+    if (!req.body?.subjectID) subjectID = getSubjectGroupById.subjectID
+    if (!req.body?.groupName) groupName = getSubjectGroupById.groupName
+    if (!req.body?.groupShortName) groupShortName = getSubjectGroupById.groupShortName
     let query = {
         subjectID: subjectID,
         groupName: groupName,

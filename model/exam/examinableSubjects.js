@@ -13,7 +13,7 @@ const examinableSubjects = new Schema({
     name: {type:String},
     points: {type:Number},
     grade: {type:String},
-    outOf:{type:Number,Default:null},
+    outOf:{type:Number,Default:null},                                                                                                                              
     weight:{type:Number,Default:null},
     p1:{
       outOf:{type:Number,Default:null},

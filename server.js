@@ -16,6 +16,7 @@ const connectDB = require('./config/db.js')
 const multer = require('multer')
 const upload = multer({dist:'public/img/users'})
 const PORT = process.env.PORT || 3500;
+const API_URL = process.env.API_URL;
 //db connection strings - 
 connectDB()
 // custom middleware logger -
