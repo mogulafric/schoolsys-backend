@@ -1,8 +1,20 @@
 const ExaminbleSubjects = require("../../../model/exam/examinableSubjects");
+const Unit = require("../../../model/units/unit");
+const SubjectTeachers = require("../../../model/subjects/subjectTeachersPerClass");
 const catchAsync = require("../../../utils/catchAsync");
 const units = require("../../../model/units/unit")
 const getAllExaminableSubjects = catchAsync(async (req, res, next) => {
-  const examinbleSubjects = await ExaminbleSubjects.find()
+  const examinbleSubjects = await ExaminbleSubjects.find().populate({
+    path:'unitID'
+  }).populate({
+    path:'subjectID'
+  }).populate({
+    path:'subjectTeacherID',
+    populate:{
+      path:'teacherID',
+      model:'Teacher'
+    }
+  })
   if (!examinbleSubjects) return res.status(204).json({
     status: 'success',
     data: examinbleSubjects
@@ -15,15 +27,45 @@ const getAllExaminableSubjects = catchAsync(async (req, res, next) => {
 });
 const addExaminableSubject = catchAsync(async (req, res, next) => {
   let data = req.body
+
+ 
   if (!data) {
     res.status(400).json({
       status: 'failed',
-      message: 'Error occurred, we uld not post examinable subjects'
+      message: 'Error occurred, we could not post examinable subjects'
     })
   }
+  // check class and subject match - compare class id in both cases
+  let subjectTeacherID = data.subjectTeacherID
+  let unitID = data.unitID
+  const unitIDCheck = await SubjectTeachers.findOne({
+    subjectTeacherID:[subjectTeacherID]
+  })
+  if(!unitIDCheck){
+    return res.status(400).json({
+      status:'failed',
+      message:'Error,unmet requirement - subject teacher cannot be empty or null'
+    })
+  }
+  
+  let examType = data.examType
+  if(examType ==="Standard"){
+    
+  }
+  else if(examType ==="Normal"){
+    return res.status(200).json({
+      message:"insert a norm setup"
+     })
+  }
+  else{
+    const result = await ExaminbleSubjects.create(data)
 
-  let resultPerItem = await ExaminbleSubjects.create(
-    data)
+     return res.status(200).json({
+      status:"success",
+      result:result.length,
+      data:result
+     })
+  }
 });
 const deleteExaminableSubject = catchAsync(async (req, res, next) => {
   let _id = req.body;
