@@ -13,8 +13,6 @@ router.route('/setup/getexambyid/:id')
 router.route('/setup/update')
     .patch(setupController.updateExam)
 
-
-
 //class marks Capture
 // router.route('/capturedmarks/getallcapturedmarksbyexamcode/:examcode')
 //      .get(marksController.getAllCaptureMarksByExamCode)

@@ -94,7 +94,7 @@ const updateExam = catchAsync(async (req, res, next) => {
     });
   }
 
-  if (!req.body?.examName) examHeader = examSetup.examName;
+  if (!req.body?.examName) examName = examHeader.examName;
   if (!req.body?.termID) termID = examHeader.termID;
   if (!req.body?.yearID) yearID = examHeader.yearID;
   if (!req.body?.examDescription) examDescription = examHeader.examDescription;
@@ -102,7 +102,6 @@ const updateExam = catchAsync(async (req, res, next) => {
     { _id: _id },
     {
       examName: examName,
-      examCode: examCode,
       termID: termID,
       yearID: yearID,
       examDescription: examDescription,

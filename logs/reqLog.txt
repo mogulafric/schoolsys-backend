@@ -7405,3 +7405,14 @@
 20220823	14:28:20	4ab1aba9-40d6-4a6a-b45e-1e42b82a61b3	GET	undefined	/api/v1/exams/setup/getallexams
 20220823	14:28:46	ea05f509-c1ac-4548-b701-bfb5c63af401	GET	undefined	/api/v1/exams/setup/getexambyid/6304b8330e8ce37ce976b85a
 20220823	14:28:50	63ca3346-8e27-4a74-acc5-f0e3054139a8	GET	undefined	/api/v1/exams/setup/getexambyid/6304b8330e8ce37ce976b85a
+20220823	20:58:17	6675c76b-b790-4424-be94-f8d5e784517d	PATCH	undefined	/api/v1/exams/setup/registerexam
+20220823	20:58:47	67d8f187-8a69-4554-96aa-ce3c12df66e8	PATCH	undefined	/api/v1/exams/setup/registerexam
+20220823	21:04:39	a92e4602-a541-475f-850f-2e353c2ef094	PATCH	undefined	/api/v1/exams/setup/registerexam
+20220823	21:04:50	73ba0fd3-5764-4942-b56e-5f6ef32cee09	PATCH	undefined	/api/v1/exams/setup/update
+20220823	21:05:37	dc8f1fab-728d-4f0e-8fbb-ae25d56ec729	GET	undefined	/api/v1/exams/setup/getallexams
+20220823	21:06:19	92d671a5-d89b-473a-b678-810ee0c100ae	PATCH	undefined	/api/v1/exams/setup/update
+20220823	21:07:29	ec238e8a-0680-4e73-b3db-52562f94a954	PATCH	undefined	/api/v1/exams/setup/update
+20220823	21:07:55	6b33419b-d1e6-4148-8571-274375e34e64	PATCH	undefined	/api/v1/exams/setup/update
+20220823	21:08:00	110ee36b-d334-4a39-955c-77d87bfbfdcf	PATCH	undefined	/api/v1/exams/setup/update
+20220823	21:08:53	406ecb1d-028d-478d-a9f6-e6957e6d28ac	PATCH	undefined	/api/v1/exams/setup/update
+20220823	21:08:55	9688fbaa-e286-484c-a741-b431ff0fd6f9	PATCH	undefined	/api/v1/exams/setup/update
