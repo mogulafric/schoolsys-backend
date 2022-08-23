@@ -7,6 +7,8 @@ const examHeaderSchema = new Schema({
     yearID: {type: mongoose.Schema.ObjectId,ref: "AcademicYear",required:true},
     unitID: {type: mongoose.Schema.ObjectId,ref: "Unit", required:true},
     examDescription: {type: String,required: true},
+    totalSubjects:{type: Number,required: true},
+    gradedSubjects:{type: Number,required: true},
     examinableSubjects:[{
     subjectGroupID:{type: mongoose.Schema.ObjectId,ref: "SubjectTeachers"},
     name: String,

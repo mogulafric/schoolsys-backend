@@ -1,7 +1,7 @@
 const ExamHeader = require("../../../model/exam/examHeader");
 const catchAsync = require("../../../utils/catchAsync");
 const Units = require("../../../model/units/unit");
-const Student = require("../../../model/students/students");
+const Subjects = require("../../../model/exam/examinableSubjects");
 const { json } = require("body-parser");
 const getAllExams = catchAsync(async (req, res, next) => {
   const result = await ExamHeader.find() 
@@ -13,7 +13,7 @@ const getAllExams = catchAsync(async (req, res, next) => {
 })
 
 const getExamById = catchAsync(async (req, res, next) => {
-  let _id = req.body
+  let _id = req.param.id
   const examHeaders = await ExamHeader.find({_id:_id}).populate({
     path: 'unitID',
     select:
@@ -41,7 +41,6 @@ const getExamById = catchAsync(async (req, res, next) => {
 const registerExam = catchAsync(async (req, res, next) => {
   let data= req.body;
   let examCode = data.examCode
- 
   const duplicate = await ExamHeader.findOne({
     examCode: examCode,
   }).exec();
@@ -51,6 +50,17 @@ const registerExam = catchAsync(async (req, res, next) => {
       message: 'A duplicate exam code exist'
     })
   }
+  let subjects = await Subjects.find()
+  data.examinableSubjects = subjects
+  data.totalSubjects = subjects.length
+  if(data.totalSubjects < data.gradedSubjects)
+  {
+    return res.status(400).json({
+      status:'failed',
+      message:'graded subject cannot be more than total subjects'
+    })
+  }
+ 
   const result = await ExamHeader.create(data)
   res.status(200).json({
     status:"success",
@@ -112,7 +122,7 @@ const getExamByid = catchAsync(async (req, res, next) => {
   if (!_id)
     return res.status(400).json({ status: 'success', message: "Exam ID required." });
 
-  const examSetup = await ExamLines.findById({ _id: _id }).populate({
+  const examSetup = await ExamHeader.findById({ _id: _id }).populate({
     path: 'unitID',
     select:
       'unitName unitCode',
@@ -126,8 +136,8 @@ const getExamByid = catchAsync(async (req, res, next) => {
       'beginsAt endsAt',
   });
   if (!examSetup){
-    return res.status(204).json({ 
-    status: 'success', 
+    return res.status(200).json({ 
+    status: 'success',
     data: examSetup 
   })
 }
