@@ -7528,3 +7528,8 @@
 20220824	05:59:09	fb2c830c-6729-4bdf-bfff-8a50a52466b1	GET	undefined	/api/v1/units/getallunits
 20220824	06:00:28	547e0883-eef8-4021-a072-86a3eadcabeb	PATCH	undefined	/api/v1/exams/setup/updateexaminablesubject
 20220824	06:00:31	42602656-a2fe-4315-a72d-9fea9e0f7c43	PATCH	undefined	/api/v1/exams/setup/updateexaminablesubject
+20220824	10:24:45	2a781553-9a59-466c-9317-0fe51c725157	PATCH	undefined	/api/v1/exams/setup/updateexaminablesubject
+20220824	10:26:08	7ce1180a-2712-4401-b953-446b0c8eba8d	PATCH	undefined	/api/v1/exams/setup/updateexaminablesubject
+20220824	10:27:01	58dba29f-e556-44b2-825c-f9767af7d71c	PATCH	undefined	/api/v1/exams/setup/updateexaminablesubject
+20220824	10:27:09	5b6a241c-84ef-49c6-96aa-7285a799667b	PATCH	undefined	/api/v1/exams/setup/updateexaminablesubject
+20220824	10:27:13	c13762a1-fa6e-461a-9ba0-c523d6dc63d7	PATCH	undefined	/api/v1/exams/setup/updateexaminablesubject

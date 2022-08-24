@@ -100,7 +100,8 @@ const updateExaminableSubject = catchAsync(async (req, res, next) => {
         status: 'success', message: `No exam matches ID .`
       });
   }
-  let subjectID = data.subjectID
+  if(!req.body?.subjectID) subjectID = examinbleSubjects.subjectID;
+  
   // "unitID": "62cdf3794a7817171c510c5
   // "subjectGroupID": "62ff5325427e15d2c8ee1b02",
   //       "examType": "Default",
@@ -110,9 +111,13 @@ const updateExaminableSubject = catchAsync(async (req, res, next) => {
     _id:_id
   },{
     data:data
-  })
+  }, {upsert:true})
  
-  res.json(result)
+  console.log(data)
+  res.status(200).json({
+    status:'success',
+    data:result
+  })
 });
 const getExaminableSubjectById = catchAsync(async (req, res, next) => {
   let _id = req.params.id;
