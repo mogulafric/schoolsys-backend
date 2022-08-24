@@ -78,7 +78,8 @@ const deleteExaminableSubject = catchAsync(async (req, res, next) => {
   })
 });
 const updateExaminableSubject = catchAsync(async (req, res, next) => {
-  const _id = req.body
+  const data = req.body
+  let _id = data._id
   if (!_id)
     return res.status(400).json({
       status: 'success',
@@ -87,15 +88,11 @@ const updateExaminableSubject = catchAsync(async (req, res, next) => {
   const examinbleSubjects = await ExaminbleSubjects.findOne({
     _id: _id
   })
-  if (!examinbleSubjects) return res.status(400).json({
+  if (!examinbleSubjects) {return res.status(400).json({
     status: 'failed',
     message:'We could not find eximanable subject' 
   });
-  res.status(200).json({
-    status: "success",
-    result: examSetup.length,
-    data: examinbleSubjects,
-  });
+}
   if (!examinbleSubjects) {
     return res
       .status(204)
@@ -103,7 +100,19 @@ const updateExaminableSubject = catchAsync(async (req, res, next) => {
         status: 'success', message: `No exam matches ID .`
       });
   }
-  res.json(examinbleSubjects);
+  let subjectID = data.subjectID
+  // "unitID": "62cdf3794a7817171c510c5
+  // "subjectGroupID": "62ff5325427e15d2c8ee1b02",
+  //       "examType": "Default",
+  //       "outOf": 100,
+  //       "weight": 100,
+  const result = await ExaminbleSubjects.updateOne({
+    _id:_id
+  },{
+    data:data
+  })
+ 
+  res.json(result)
 });
 const getExaminableSubjectById = catchAsync(async (req, res, next) => {
   let _id = req.params.id;
