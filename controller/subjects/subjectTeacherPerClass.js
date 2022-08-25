@@ -1,5 +1,6 @@
 const SubjecTeacherPerClass = require('../../model/subjects/subjectTeachersPerClass')
 const catchAsyn = require('../../utils/catchAsync')
+const Teacher = require('../../model/teachers/teachers')
 
 const getAllSubjectTeachersPerClass = catchAsyn(async (req, res, next) => {
     const result = await SubjecTeacherPerClass.find().populate({
@@ -25,11 +26,12 @@ const registerSubjectTeacherPerClass = catchAsyn(async (req, res, next) => {
         status: "failed",
         message: "Kindly, ensure no duplication of class or subject, you can use update to add more  teachers per class"
     });
-    const result = await SubjecTeacherPerClass.create({
+    let data = {
         subjectID: subjectID,
-        $push:{teacherID:teacherID},
+        teacherID:teacherID,
         unitID:unitID
-    });
+    }
+    const result = await SubjecTeacherPerClass.create(data);
     res.status(201).json({
         status: 'success',
         result: result.length,
@@ -75,7 +77,7 @@ const updateSubjectTeacherPerClass = catchAsyn(async (req, res, next) => {
             message: 'Sorry, we could find a match for your query, Id is required'
         })
     }
-    const exist = await SubjecTeacherPerClass.findOne({
+    const exist = await Teacher.findOne({
         _id: _id
     })
     if (!exist) {
