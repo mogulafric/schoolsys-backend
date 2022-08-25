@@ -2,7 +2,13 @@ const SubjecTeacherPerClass = require('../../model/subjects/subjectTeachersPerCl
 const catchAsyn = require('../../utils/catchAsync')
 
 const getAllSubjectTeachersPerClass = catchAsyn(async (req, res, next) => {
-    const result = await SubjecTeacherPerClass.find()
+    const result = await SubjecTeacherPerClass.find().populate({
+      path:teacherID  
+    }).populate({
+        path:unitID
+    }).populate({
+        path:subjectID
+    })
     res.status(200).json({
         status: 'success',
         result: result.length,

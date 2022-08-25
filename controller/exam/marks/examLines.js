@@ -28,10 +28,11 @@ const initiateMarks = catchAsync(async (req, res, next) => {
       })
     
       let examinableSubjects = setUpExam.examinableSubjects
-     
+    // console.log(examinableSubjects)
       let StudentID = studentsUnit.map((el) => {
             return el._id
       })
+      let result = []
       let studentsMarks = StudentID.map((el) => {
             let studentID = el
             
@@ -40,9 +41,14 @@ const initiateMarks = catchAsync(async (req, res, next) => {
                   studentID: studentID,
                   examinableSubjects:examinableSubjects
             }
-            return examLinesQuery
+            result.push(examLinesQuery)
+            
       })
-     console.log(studentsMarks)
+    res.status(200).json({
+      status:'success',
+      result:result.lenght,
+      data:result
+    })     
 
 
 })
