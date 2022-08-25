@@ -7550,3 +7550,9 @@
 20220825	14:13:27	7daf0ba9-9721-43cc-ad05-8c4aaf21b746	POST	undefined	/api/v1/exams/capturedmarks/initatemarkscapture
 20220825	14:13:58	fe2c7725-cf19-49e0-8301-976d1bc36540	POST	undefined	/api/v1/exams/capturedmarks/initatemarkscapture
 20220825	14:15:36	aebe276d-06cf-47bc-85f4-f9702e2d1d1b	POST	undefined	/api/v1/exams/capturedmarks/initatemarkscapture
+20220825	14:26:39	f36a81b5-454f-4b19-bfdd-f0f15c6fac66	POST	undefined	/api/v1/exams/capturedmarks/initatemarkscapture
+20220825	14:39:27	5e30c292-8559-42ee-91ff-b3fae046fef7	POST	undefined	/api/v1/exams/capturedmarks/initatemarkscapture
+20220825	14:39:58	8167bb38-d52b-4bb5-a138-d9f86ca14cc4	POST	undefined	/api/v1/exams/capturedmarks/initatemarkscapture
+20220825	14:51:50	166e6ece-af70-4960-94ec-3fe61c0fd3fc	GET	undefined	/api/v1/subjects/getallsubjectteacherspersclass
+20220825	14:56:14	9dbbfbcc-649d-4bf6-bead-eade044321ca	GET	undefined	/api/v1/subjects/getallsubjectteacherspersclass
+20220825	14:58:51	1becaaef-5067-485a-88a6-f5c57cc180ef	GET	undefined	/api/v1/subjects/getallsubjectteacherspersclass

@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const subjectTeacherPerClassSchema = new Schema({
-    
     subjectID:{type:mongoose.Schema.ObjectId,ref:'Subject', required:true},
     teacherID:[{type:mongoose.Schema.ObjectId,ref:'Teacher',required:true}], 
     unitID:{type:mongoose.Schema.ObjectId,ref:'Unit',required:true},

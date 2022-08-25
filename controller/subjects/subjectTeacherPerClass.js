@@ -3,11 +3,11 @@ const catchAsyn = require('../../utils/catchAsync')
 
 const getAllSubjectTeachersPerClass = catchAsyn(async (req, res, next) => {
     const result = await SubjecTeacherPerClass.find().populate({
-      path:teacherID  
+      path:'teacherID'  
     }).populate({
-        path:unitID
+        path:'unitID'
     }).populate({
-        path:subjectID
+        path:'subjectID'
     })
     res.status(200).json({
         status: 'success',
@@ -47,7 +47,13 @@ const getSubjectTeacherPerClassById = catchAsyn(async (req, res, next) => {
     }
     const getSubject = await SubjecTeacherPerClass.findOne({
         _id: _id
-    })
+    }).populate({
+        path:'teacherID'  
+      }).populate({
+          path:'unitID'
+      }).populate({
+          path:'subjectID'
+      })
     if (!getSubject) {
         res.status(204).json({
             status: 'success',

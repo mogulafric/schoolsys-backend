@@ -41,13 +41,13 @@ const initiateMarks = catchAsync(async (req, res, next) => {
                   studentID: studentID,
                   examinableSubjects:examinableSubjects
             }
-            result.push(examLinesQuery)
-            
+            result.push(examLinesQuery) 
       })
+      let finalResult = await CaptureMarks.create(result)
     res.status(200).json({
       status:'success',
-      result:result.lenght,
-      data:result
+      result:finalResult.length,
+      data:finalResult
     })     
 
 
