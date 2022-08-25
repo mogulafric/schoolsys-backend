@@ -7575,3 +7575,9 @@
 20220825	16:09:10	348267b2-3212-46c2-973e-e5b30e717000	POST	undefined	/api/v1/subjects/registersubjectteacherperclass
 20220825	16:09:56	0b32af0b-219d-495e-a54c-7f72475bc304	POST	undefined	/api/v1/subjects/registersubjectteacherperclass
 20220825	16:10:27	f7e4660b-f5d1-4517-917a-aa0f2cab2358	POST	undefined	/api/v1/subjects/registersubjectteacherperclass
+20220825	16:20:44	b3bbb05e-66e3-448a-b090-a2dd52b6f0bb	GET	undefined	/api/v1/subjects/getallsubjectteacherspersclass
+20220825	16:21:15	2315b45f-6869-4f2d-ba42-c7d14bed6634	GET	undefined	/api/v1/subjects/getallsubjectteacherspersclass
+20220825	16:22:47	dddde2ea-a48c-42a3-97de-7c3ab6224cbf	GET	undefined	/api/v1/subjects/getallsubjectteacherspersclass
+20220825	17:23:31	d59c99ac-8d45-4561-ad2d-08a8397f85a4	GET	undefined	/api/v1/subjects/getallsubjectteacherspersclass
+20220825	22:57:13	e7e3c911-e9e8-4d20-9f31-c52d8a53be7a	POST	undefined	/api/v1/auth/signup
+20220825	23:26:14	54a1d0ce-09c7-4165-a6f1-9426f406f097	POST	undefined	/api/v1/auth/signup

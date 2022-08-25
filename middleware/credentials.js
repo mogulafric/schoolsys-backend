@@ -6,7 +6,7 @@ const credentials = (req, res, next) => {
         res.header('Access-Control-Allow-Credentials', true);
     }
 
-    console.log(origin)
+    //console.log(origin)
     next();
 }
 
