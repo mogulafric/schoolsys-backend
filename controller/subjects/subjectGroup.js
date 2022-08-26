@@ -2,7 +2,9 @@ const SubjectGroup = require('../../model/subjects/subjectGroup')
 const catchAsyn = require('../../utils/catchAsync')
 
 const getAllSubjectGroup = catchAsyn(async (req, res, next) => {
-    const result = await SubjectGroup.find()
+    const result = await SubjectGroup.find().populate({
+        path:'subjects'
+    })
     res.status(200).json({
         status: 'success',
         result: result.length,
@@ -40,6 +42,8 @@ const getSubjectGroupById = catchAsyn(async (req, res, next) => {
     }
     const getSubject = await SubjectGroup.findOne({
         _id: _id
+    }).populate({
+        path:'subjects'
     })
     if (!getSubject) {
         res.status(204).json({
@@ -90,6 +94,29 @@ const updateSubjectGroup = catchAsyn(async (req, res, next) => {
         data: result
     })
 })
+const addSubjectToGroup= catchAsyn(async (req, res, next) => { 
+    let {subjectID, _id} = req.body
+    if(!subjectID){
+        res.status(400).json({
+            status:'failed',
+            message:'sorry, id is missing'
+        })
+    }
+    const result = await SubjectGroup.updateOne({
+        _id:_id
+    },
+    {$set:{
+        subjects:subjectID
+    }}, 
+    {
+        upsert:true
+    })
+    res.status(200).json({
+        status:'sucess',
+        result:result.length,
+        data:result
+    })
+})
 const archive = catchAsyn(async (req, res, next) => { })
 const deactivate = catchAsyn(async (req, res, next) => { })
 
@@ -97,6 +124,7 @@ module.exports = {
     getAllSubjectGroup,
     registerSubjectGroup,
     getSubjectGroupById,
+    addSubjectToGroup,
     updateSubjectGroup,
     archive,
     deactivate

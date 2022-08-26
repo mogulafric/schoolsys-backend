@@ -29,6 +29,9 @@ router.route('/getsubjectgroupbyid/:id')
     .get(subjectsGroups.getSubjectGroupById)
 router.route('/updatesubjectgroup')
     .patch(subjectsGroups.updateSubjectGroup)
+router.route('/addsubjecttoagroup')
+    .patch(subjectsGroups.addSubjectToGroup)
+    
 router.route('/archive')
     .get(subjectsGroups.archive)
 router.route('/deactivate')
@@ -47,5 +50,4 @@ router.route('/archive')
     .get(subjectTeacher.archive)
 router.route('/deactivate')
     .get(subjectTeacher.deactivate)
-
 module.exports = router;

@@ -7664,3 +7664,16 @@
 20220826	15:54:13	e38bacd7-6890-4b1f-a246-3475b7af8e64	PATCH	undefined	/api/v1/roles/updaterole
 20220826	15:54:34	bcae73a1-3277-4b9e-8078-9b5c5266930d	PATCH	undefined	/api/v1/roles/updaterole
 20220826	15:54:36	f8f1a9b7-3c8e-4cae-9d84-336677750875	PATCH	undefined	/api/v1/roles/updaterole
+20220826	16:09:23	24e3334b-aa3a-41ac-adbd-c2b7b20087b1	GET	undefined	/api/v1/subjects/getsubjectgroupbyid/62ff5325427e15d2c8ee1b02
+20220826	16:09:42	2eca0702-7047-4f9a-abcb-f1f11e9d10aa	GET	undefined	/api/v1/subjects/getsubjectgroupbyid/62ff5325427e15d2c8ee1b02
+20220826	16:11:08	d579511f-6f0b-4d73-95cb-34a601996f85	GET	undefined	/api/v1/subjects/getsubjectgroupbyid/62ff5325427e15d2c8ee1b02
+20220826	16:11:51	faf9d596-25ef-4ecb-9ee9-9c25d4825dc1	GET	undefined	/api/v1/subjects/addsubjecttoagroup
+20220826	16:12:14	60d729c1-7542-4961-85a3-ac97c912c170	GET	undefined	/api/v1/subjects/addsubjecttoagroup
+20220826	16:38:30	6217941e-d4fe-4753-8936-91a189b4fadf	PATCH	undefined	/api/v1/subjects/addsubjecttoagroup
+20220826	16:39:20	ee8072e4-8ccc-4b2a-b2bb-3343c10ad799	PATCH	undefined	/api/v1/subjects/addsubjecttoagroup
+20220826	16:42:27	23ba690a-0488-49c9-995e-4f1adf5c2eca	PATCH	undefined	/api/v1/subjects/addsubjecttoagroup
+20220826	16:44:34	75ce7ce7-d3b0-4212-89a6-8e6440007094	GET	undefined	/api/v1/subjects/getsubjectgroupbyid/62ff5325427e15d2c8ee1b02
+20220826	16:47:54	5a8128cf-c086-48c7-bf57-f19cc25d426f	PATCH	undefined	/api/v1/subjects/addsubjecttoagroup
+20220826	16:47:57	fcdb08fc-65a7-403e-98bf-263b98d57b63	PATCH	undefined	/api/v1/subjects/addsubjecttoagroup
+20220826	16:48:00	255757cf-de7e-402f-afe2-c0c9e2325f83	PATCH	undefined	/api/v1/subjects/addsubjecttoagroup
+20220826	16:48:08	848a1195-786f-4731-920f-ee4fbe9cbf94	GET	undefined	/api/v1/subjects/getsubjectgroupbyid/62ff5325427e15d2c8ee1b02
