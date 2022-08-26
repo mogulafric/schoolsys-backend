@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const examSetupSchema = new Schema({
+const examLineSchema = new Schema({
   examID:{type: mongoose.Schema.ObjectId,ref: "ExamHeader"},
   examinableSubjects:
-  [{type: mongoose.Schema.ObjectId,ref: "SubjectTeachers"},
-  {subjectName: String},
-  {score: Number},
-  {points: Number},
-  {grade: String},
+  [{subjectID:{type: mongoose.Schema.ObjectId,ref: "Subject"}},
+  {subjectName: String, default:null},
+  {score: Number,default:null},
+  {points: Number,default:null},
+  {grade: String,default:null},
   {subjectTeacher:{type: mongoose.Schema.ObjectId,ref: "SubjectTeachers"}},
+  {subjectTeacherName:{type:String,default:null}},
   {outOf:{type: Number,default:100}},
   {weight:{type:Number}},
   {p1:{score: Number, outOf: {type: Number,Default: 60},weight:Number }},
@@ -24,4 +25,4 @@ const examSetupSchema = new Schema({
   isArchived: { type: Boolean, Default: false },
   isActive: { type: Boolean, Default: true },
 });
-module.exports = mongoose.model("ExamSetup", examSetupSchema);
+module.exports = mongoose.model("ExamLine", examLineSchema);

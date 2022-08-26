@@ -5,8 +5,8 @@ const getAllRoles = catchAsync(async (req, res, next) => {
     if (!roles) return res.status(204).json({ 'message': 'No Roles found.' });
     res.status(200).json({
         status: 'success',
-        result: result.length,
-        data: result
+        result: roles.length,
+        data: roles
     });
 })
 const createNewRole = catchAsync(async (req, res, next) => {
@@ -23,27 +23,28 @@ const createNewRole = catchAsync(async (req, res, next) => {
 })
 
 const updateRole = catchAsync(async (req, res, next) => {
-    if (!req?.body?._id) {
+    let {_id, roleName,roleCode}= req.body
+    if (!_id){
         return res.status(400).json({
             status: 'failed',
             message: 'ID parameter is required.'
         });
     }
     const role = await Role.find({
-        _id: req.body._id
+        _id:_id
     }).exec();
     if (!role) {
         return res.status(204).json({
             status: 'failed',
-            message: `No role matches ID ${req.body._id}.`
+            message: `No role matches ID`
         });
     }
     if (req.body?.roleName) role.roleName = req.body.roleName;
     if (req.body?.roleCode) role.roleCode = req.body.roleCode;
-    const result = await Role.create({
+    const result = await Role.updateOne({_id:_id},{
         roleName: roleName,
         roleCode: roleCode
-    });
+    }, {upsert:true});
     res.status(200).json({
         status: 'success',
         result: result.length,

@@ -15,7 +15,7 @@ router.route('/updaterole')
 router.route('/deleterole')
 .patch(rolesController.deleteRole)
 router.route('/getrolebyid/:id')
-.patch(rolesController.getRole)
+.get(rolesController.getRole)
 
 module.exports = router;
 

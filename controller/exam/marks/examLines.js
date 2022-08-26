@@ -9,7 +9,7 @@ const initiateMarks = catchAsync(async (req, res, next) => {
       const checkExist = await CaptureMarks.findOne({
             examID: examID
       })
-      if (checkExist) {
+      if (!checkExist) {
             return res.status(400).json({
                   status: 'failed',
                   message: 'The exam has already been initiated'
@@ -29,32 +29,50 @@ const initiateMarks = catchAsync(async (req, res, next) => {
     
       let examinableSubjects = setUpExam.examinableSubjects
     // console.log(examinableSubjects)
+    let students = []
       let StudentID = studentsUnit.map((el) => {
-            return el._id
+            students.push(el._id)
       })
+     
       let result = []
-      let studentsMarks = StudentID.map((el) => {
-            let studentID = el
+//       let studentsMarks = students.map((el) => {
+//             let studentID = el
             
-            let examLinesQuery = {
-                  examID: examID,
-                  studentID: studentID,
-                  examinableSubjects:examinableSubjects
-            }
-            result.push(examLinesQuery) 
-      })
-      let finalResult = await CaptureMarks.create(result)
-    res.status(200).json({
-      status:'success',
-      result:finalResult.length,
-      data:finalResult
-    })     
+//             let examLinesQuery = {
+//                   examID: examID,
+//                   studentID: studentID,
+//                   examinableSubjects:examinableSubjects
+//             }
+//             result.push(examLinesQuery) 
+//       })
+//       let finalResult = await CaptureMarks.create(result)
+//     res.status(200).json({
+//       status:'success',
+//       result:finalResult.length,
+//       data:finalResult
+//     })     
 
 
 })
 const captureMarks = catchAsync(async (req, res, next) => {
 })
 const getCapturedMarksByExamCode = catchAsync(async (req, res, next) => {
+      let examCode = req.body.params
+      const examEntries = await CaptureMarks.find({examCode:examCode})
+      .populate({
+            path:'examID'
+      })
+      if(!examEntries){
+            return res.status(400).json({
+                  status:'failed',
+                  message:'We could find a matching data for your request'
+            })
+      }
+      res.status(200).json({
+            status:'success',
+            result:examEntries.length,
+            data:examEntries
+      })
 })
 const getCapturedMarksByEntryID = catchAsync(async (req, res, next) => {
 })
