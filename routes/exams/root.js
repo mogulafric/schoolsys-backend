@@ -26,14 +26,16 @@ router.route('/setup/update')
 //class marks Capture
 router.route('/capturedmarks/initatemarkscapture')
       .post(marksController.initiateMarks)
-router.route('/capturedmarks/getallcapturedmarksbyexamcode/:examCode')
-      .get(marksController.getCapturedMarksByExamCode)
-// router.route('/capturedmarks/updatemarksperstudentpersubject')
+// router.route('/capturedmarks/getallcapturedmarksbyexamcode/:examCode')
+//       .get(marksController.getCapturedMarksByExamCode)
+// // router.route('/capturedmarks/updatemarksperstudentpersubject')
 //     .post(marksController.UpdateMarksPerStudentPerSubject) 
 router.route('/capturedmarks/updatescorebyexambysubject')
    .patch(marksController.captureScoreByExamBySubject)
-//  router.route('/capturedmarks/updatemutiplestudents')
-//     .get(marksController.updateMutipleStudents)
+ router.route('/capturedmarks/getmarksbyexamid/:examID')
+    .get(marksController.getCapturedMarksByExamID)
+router.route('/capturedmarks/getmarksbyexamitementryid/:entryID')
+    .get(marksController.getCapturedMarksByItemEntryID)
 
 
 // //marks process

@@ -45,7 +45,6 @@ const initiateMarks = catchAsync(async (req, res, next) => {
             result.push(examLinesQuery)
       })
       const finalResult = await CaptureMarks.create(result)
-
       const examlinesEntries = await CaptureMarks.find({ examID: examID })
       examlinesEntries.forEach(async (item, index, arr) => {
             let addMarksID = item._id
@@ -93,12 +92,9 @@ const captureScoreByExamBySubject = catchAsync(async (req, res, next) => {
       })
 
 })
-const getCapturedMarksByExamCode = catchAsync(async (req, res, next) => {
-      let examCode = req.body.params
-      const examEntries = await CaptureMarks.find({ examCode: examCode })
-            .populate({
-                  path: 'examID'
-            })
+const getCapturedMarksByItemEntryID = catchAsync(async (req, res, next) => {
+      let entryID = req.params.entryID
+      const examEntries = await CaptureMarks.findOne({entryID:entryID })
       if (!examEntries) {
             return res.status(400).json({
                   status: 'failed',
@@ -111,11 +107,25 @@ const getCapturedMarksByExamCode = catchAsync(async (req, res, next) => {
             data: examEntries
       })
 })
-const getCapturedMarksByEntryID = catchAsync(async (req, res, next) => {
+const getCapturedMarksByExamID = catchAsync(async (req, res, next) => {
+      let examID = req.params.examID
+      const examEntries = await CaptureMarks.find({examID:examID })
+      if (!examEntries){
+            return res.status(400).json({
+                  status: 'failed',
+                  message: 'We could find a matching data for your request'
+            })
+      }
+      res.status(200).json({
+            status: 'success',
+            result: examEntries.length,
+            data: examEntries
+      })
 })
 module.exports = {
       initiateMarks,
       captureScoreByExamBySubject,
-      getCapturedMarksByExamCode,
-      getCapturedMarksByEntryID,
+      getCapturedMarksByExamID,
+      getCapturedMarksByItemEntryID
+
 };
