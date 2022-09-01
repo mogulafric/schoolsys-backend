@@ -51,6 +51,7 @@ const registerExam = catchAsync(async (req, res, next) => {
     })
   }
   let subjects = await Subjects.find()
+
   data.examinableSubjects = subjects
   data.totalSubjects = subjects.length
   if(data.totalSubjects < data.gradedSubjects)

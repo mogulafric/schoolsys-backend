@@ -1,23 +1,28 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+mongoose.plugin(schema => { schema.options.usePushEach = true });
 const examLineSchema = new Schema({
   examID:{type: mongoose.Schema.ObjectId,ref: "ExamHeader"},
+  studentID:{type: mongoose.Schema.ObjectId,ref: "Subject"},
   examinableSubjects:
-  [{subjectID:{type: mongoose.Schema.ObjectId,ref: "Subject"}},
-  {subjectName: String, default:null},
-  {score: Number,default:null},
-  {points: Number,default:null},
-  {grade: String,default:null},
-  {subjectTeacher:{type: mongoose.Schema.ObjectId,ref: "SubjectTeachers"}},
-  {subjectTeacherName:{type:String,default:null}},
-  {outOf:{type: Number,default:100}},
-  {weight:{type:Number}},
-  {p1:{score: Number, outOf: {type: Number,Default: 60},weight:Number }},
-  {p2:{score: Number, outOf: {type: Number,Default: 60},weight:Number }},
-  {p3:{score: Number, outOf: {type: Number,Default: 100},weight:Number }},
-  {cat1:{score:Number, outOf:{type:Number,defaults: 30, weight:Number}}},
-  {cat2:{score:Number, outOf:{type:Number,defaults: 30, weight:Number}}},
-  {main:{score:Number, outOf:{type:Number,defaults: 40, weight:Number}}}],
+  [{
+  subjectID:{type: mongoose.Schema.ObjectId,ref: "Subject"},
+  subjectGroupID:{type: mongoose.Schema.ObjectId,ref: "SubjectGroup"},
+  subjectName: String,
+  score: Number,
+  points: Number,
+  grade: String,
+  subjectTeacherID:{type: mongoose.Schema.ObjectId,ref: "Teacher"},
+  subjectTeacherName:String,
+  outOf:Number,
+  weight:Number,
+  p1:{score: Number, outOf:Number,weight:Number },
+  p2:{score: Number, outOf:Number,weight:Number },
+  p3:{score: Number, outOf: Number,weight:Number },
+  cat1:{score:Number, outOf:Number, weight:Number},
+  cat2:{score:Number, outOf:Number, weight:Number},
+  main:{score:Number, outOf:Number, weight:Number}
+}],
   classTecher:{type: mongoose.Schema.ObjectId,ref: "classTeacher"},
   classTeacherRemarks:{type: mongoose.Schema.ObjectId,ref: "classTeacherRemarks"},
   principal:{type: mongoose.Schema.ObjectId,ref: "Principal"},

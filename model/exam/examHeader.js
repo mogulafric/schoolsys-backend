@@ -10,7 +10,9 @@ const examHeaderSchema = new Schema({
     totalSubjects:{type: Number,required: true},
     gradedSubjects:{type: Number,required: true},
     examinableSubjects:[{
-    subjectGroupID:{type: mongoose.Schema.ObjectId,ref: "SubjectTeachers"},
+    subjectGroupID:{type: mongoose.Schema.ObjectId,ref: "SubjectGroup"},
+    subjectID:{type: mongoose.Schema.ObjectId,ref: "Subject"},
+    subjectTeacherID:{type: mongoose.Schema.ObjectId,ref: "Teacher"},
     name: String,
     score: Number,
     points: Number,
