@@ -67,7 +67,7 @@ const initiateMarks = catchAsync(async (req, res, next) => {
       })
 })
 const captureScoreByExamBySubject = catchAsync(async (req, res, next) => {
-      let { _id, subjectObjectID, score } = req.body
+      let { _id, subjectObjectID, score, index } = req.body
       const findExamList = await CaptureMarks.findOne({ _id: _id })
       if (!findExamList) {
             return res.status(400).json({
@@ -75,26 +75,26 @@ const captureScoreByExamBySubject = catchAsync(async (req, res, next) => {
                   message: 'we could not retried a matching id for the selected item'
             })
       }
-     
-      let updateSubjectScore = await CaptureMarks.updateOne({
-            _id: _id,"examinableSubjects.$[]._id": subjectObjectID
-      },
+      const querySelector = JSON.parse(`{
+      "_id": "${_id}","examinableSubjects.${index}._id": "${subjectObjectID}"
+}`)
+      const query = JSON.parse(`{"examinableSubjects.${index}.score": "${score}"}`)
+      let updateSubjectScore = await CaptureMarks.updateOne(querySelector,
             {
-                  "$set":{"examinableSubjects.$[].score": score}
+                  $set: query
             },
             {
-                  multi:true
+                  multi: true
             })
       res.status(200).json({
             status: 'success',
             result: updateSubjectScore.length,
             data: updateSubjectScore
       })
-
 })
 const getCapturedMarksByItemEntryID = catchAsync(async (req, res, next) => {
       let entryID = req.params.entryID
-      const examEntries = await CaptureMarks.findOne({entryID:entryID })
+      const examEntries = await CaptureMarks.findOne({_id: entryID })
       if (!examEntries) {
             return res.status(400).json({
                   status: 'failed',
@@ -107,9 +107,9 @@ const getCapturedMarksByItemEntryID = catchAsync(async (req, res, next) => {
             data: examEntries
       })
 })
-const getCapturedMarksByExamID = catchAsync(async (req, res, next) => {
+const getCapturedMarksByExamID=catchAsync(async (req, res, next) => {
       let examID = req.params.examID
-      const examEntries = await CaptureMarks.find({examID:examID })
+      const examEntries = await CaptureMarks.find({examID:examID})
       if (!examEntries){
             return res.status(400).json({
                   status: 'failed',
