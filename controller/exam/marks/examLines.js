@@ -69,7 +69,7 @@ const initiateMarks = catchAsync(async (req, res, next) => {
 const captureScoreByExamBySubject = catchAsync(async (req, res, next) => {
       let { _id, subjectObjectID, score, index } = req.body
       const findExamList = await CaptureMarks.findOne({ _id: _id })
-      if (!findExamList) {
+      if (!findExamList){
             return res.status(400).json({
                   status: 'failed',
                   message: 'we could not retried a matching id for the selected item'
@@ -122,10 +122,100 @@ const getCapturedMarksByExamID=catchAsync(async (req, res, next) => {
             data: examEntries
       })
 })
+const subjectGradesAndComments=catchAsync(async (req, res, next) => {
+      let {examID, SubjectID, isKiwaswahili} = req.body
+
+      let score = 80
+      let grade = ""
+      let comment = ""
+      let points = 0
+      // calculate subject grade
+      if(score >=80 || score <=100){
+            grade = "A"
+            comment = "Excellent"
+            points = 12
+      } 
+      else if(score >=75 || score <= 79.99){
+            grade = "A-"
+            comment = "V.Good"
+            points = 11 
+      }
+      else if(score >=70 || score <=75.99){
+            grade = "B+"
+            comment = "Good"
+            points = 9
+      }
+      else if(score >=65 || score <=69.99){
+            grade = "B+"
+            comment = "Good"
+            points =8
+      }
+      else if(score >=60 || score <= 64.99 ){
+            grade = "B+"
+            comment = "Good"
+            points =8
+      }
+      else if(score >= 55 || score <= 59.99){
+            grade = "B+"
+            comment = "Good"
+            points =7
+      }
+      else if(score >= 50 || score <= 54.99){
+            grade = "B+"
+            comment = "Good"
+            points =6
+      }
+      else if(score >= 45 || score <= 49.99){
+            grade = "B+"
+            comment = "Good"
+            points =5
+      }
+      else if(score >= 40 || score <= 44.99){
+            grade = "B+"
+            comment = "Good"
+            points =4
+      }
+      else if(score >=35 || score <= 39.99){
+            grade = "B+"
+            comment = "Good"
+            points =3
+      }
+      else if (score >= 30 || score <= 34.99){
+            grade = "B+"
+            comment = "Good"
+            points =2
+      }
+      else if(score >= 0 || score <= 29.99){
+            grade = "B+"
+            comment = "Good"
+            points =1
+      }
+      else{
+
+      }
+      // add comments
+      // update teachers details
+
+      const examEntries = await CaptureMarks.find({examID:examID})
+      if (!examEntries){
+            return res.status(400).json({
+                  status: 'failed',
+                  message: 'We could find a matching data for your request'
+            })
+      }
+
+      res.status(200).json({
+            status: 'success',
+            result: examEntries.length,
+            data: examEntries
+      })
+})
+
 module.exports = {
       initiateMarks,
       captureScoreByExamBySubject,
       getCapturedMarksByExamID,
-      getCapturedMarksByItemEntryID
+      getCapturedMarksByItemEntryID,
+      subjectGradesAndComments
 
 };

@@ -26,10 +26,6 @@ router.route('/setup/update')
 //class marks Capture
 router.route('/capturedmarks/initatemarkscapture')
       .post(marksController.initiateMarks)
-// router.route('/capturedmarks/getallcapturedmarksbyexamcode/:examCode')
-//       .get(marksController.getCapturedMarksByExamCode)
-// // router.route('/capturedmarks/updatemarksperstudentpersubject')
-//     .post(marksController.UpdateMarksPerStudentPerSubject) 
 router.route('/capturedmarks/updatescorebyexambysubject')
    .patch(marksController.captureScoreByExamBySubject)
  router.route('/capturedmarks/getmarksbyexamid/:examID')
@@ -38,9 +34,9 @@ router.route('/capturedmarks/getmarksbyexamitementryid/:entryID')
     .get(marksController.getCapturedMarksByItemEntryID)
 
 
-// //marks process
-// router.route('/marks/Sprocess/junior')
-//   .patch(marksController.junior)
+// subject grades and comments
+router.route('/subjectgradesandcomments')
+  .patch(marksController.subjectGradesAndComments)
 //  router.route('/marks/process/senior')
 //    .patch(marksController.senior)
 
