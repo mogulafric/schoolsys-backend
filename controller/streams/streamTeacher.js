@@ -79,10 +79,24 @@ const archive = catchAsync(async (req, res, next) => {
       .status(204)
       .json({ message: `No Subject matches ID ${req.body.id}.` });
   }
-  const result = await Unit.deleteOne(); //{ _id: req.body.id }
+  const result = await StreamTeacher.deleteOne(); //{ _id: req.body.id }
 res.json(result);
 });
 
+const remove = catchAsync(async (req, res, next) => {
+  let streamTeacherID = res.parama.streamTeacherID
+  if (!streamTeacherID) {
+    return res.status(400).json({
+      status: 'failed',
+      message: 'Id must be provided for this request'
+    })
+  }
+  await StreamTeacher.findByIdAndRemove({ _id: streamTeacherID })
+  res.status(200).json({
+    status: 'success',
+    message: 'Removed successfully'
+  })
+})
 
 module.exports = {
     getAllStreams,
@@ -90,6 +104,7 @@ module.exports = {
     getStreamById,
     updateStream,
   deactivate,
-  archive
+  archive,
+  remove
 };
 

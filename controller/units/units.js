@@ -71,7 +71,20 @@ const archive = catchAsync(async (req, res, next) => {
   const result = await Unit.deleteOne(); //{ _id: req.body.id }
   res.json(result);
 });
-
+const remove = catchAsync(async (req, res, next) => {
+  let unitID = res.parama.unitID
+  if (!unitID) {
+    return res.status(400).json({
+      status: 'failed',
+      message: 'Id must be provided for this request'
+    })
+  }
+  await Unit.findByIdAndRemove({ _id: unitID })
+  res.status(200).json({
+    status: 'success',
+    message: 'Removed successfully'
+  })
+})
 
 module.exports = {
   getAllUnits,
@@ -79,5 +92,6 @@ module.exports = {
   getUnitById,
   updateUnit,
   deactivateUnit,
-  archive
+  archive,
+  remove
 };

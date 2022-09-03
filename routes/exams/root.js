@@ -13,6 +13,8 @@ router.route('/setup/getexaminablesubjectbyid/:id')
     .get(examinableSubjects.getExaminableSubjectById)
 router.route('/setup/updateexaminablesubject')
     .patch(examinableSubjects.updateExaminableSubject)
+router.route('/remove/:examinableSubjectID')
+    .get(examinableSubjects.remove)
 // setup
 router.route('/setup/getallexams')
     .get(setupController.getAllExams)

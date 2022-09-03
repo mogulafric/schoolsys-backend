@@ -17,7 +17,11 @@ router.route('/archive')
     .get(unitsController.archive)
 router.route('/deactivate')
     .get(unitsController.deactivateUnit)
+router.route('/remove/:unitID')
+    .get(unitsController.remove)
+
 module.exports = router;
+
 
 
 // class teacher

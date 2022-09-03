@@ -124,6 +124,21 @@ const isActive = catchAsync(async (req, res, next) => {
 const isArchived = catchAsync(async (req, res, next) => {
 
 })
+const remove = catchAsync(async (req, res, next) => {
+    let schoolID = req.params.schoolID
+    if (!schoolID) {
+        return res.status(400).json({
+            status: 'failed',
+            message: 'Id must be provided for this request'
+        })
+    }
+    await School.findByIdAndRemove({ _id: schoolID })
+    res.status(200).json({
+        status: 'success',
+        message: 'Removed successfully'
+    })
+})
+
 module.exports =
 {
     getAllSchool,
@@ -131,5 +146,6 @@ module.exports =
     updateSchool,
     registerSchool,
     isActive,
-    isArchived
+    isArchived,
+    remove
 }

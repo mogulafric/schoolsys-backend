@@ -128,11 +128,25 @@ const getExaminableSubjectById = catchAsync(async (req, res, next) => {
     data:result
   })
 });
+const remove = catchAsync(async (req, res, next) => {
+  let examinbleSubjectID = res.parama.examinbleSubjectID
+  if (!examinbleSubjectID){
+    return res.status(400).json({
+      status: 'failed',
+      message: 'Id must be provided for this request'
+    })
+  }
+  await ExaminbleSubjects.findByIdAndRemove({ _id: examinbleSubjectID })
+  res.status(200).json({
+    status: 'success',
+    message: 'Removed successfully'
+  })
+})
 module.exports = {
   getAllExaminableSubjects,
   addExaminableSubject,
   deleteExaminableSubject,
   updateExaminableSubject,
-  getExaminableSubjectById
-
+  getExaminableSubjectById,
+  remove
 };
